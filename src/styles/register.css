@@ -1,89 +1,80 @@
-
-.login_container{
-	background-color: #ffe1e9;
+.register_container{
+	background-color: rgba(244,244,250,1);
+	height: 100vh;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	height: 100vh;
-	
 }
-.login_box{
+.register_box{
 	background-color: white;
 	border-radius: 8px;
 	box-shadow: rgb(0 0 0 / 12%) 0px 0px 1px 0px, rgb(0 0 0 / 16%) 0px 0px 14px 0px;
-	padding: 2%;
-	flex-direction: column;
-	display: flex;
-	align-items: flex-start;
-	justify-content: flex-start;
-
-}
-
-.login_form{
-	margin-top: 7%;
+	padding: 3%;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
 	justify-content: flex-start;
-	
+	/* height: 50%; */
+    width:25%;
 }
+
 @media screen and (max-width: 768px){
-.login_input{
-	/* width: %; */
-	width: auto;
-	padding: 2%;
-}
-.login_box{
-	width: 100%;
-	height: 100%;
-	display:flex;
-	align-items: center;
-	justify-content: center;
-}
+    .register_input{
+        /* width: %; */
+        width: 50%;
+        padding: 5%;
+    }
+    .register_box{
+        width: 100%;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    }
 
+.register_form{	
+	margin-top: 5%;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: flex-start;
+    width: 90%;
+    /* background-color: blue; */
 }
-
-.login_input{
+.register_input{
 	margin-top: 2%;
 	margin-bottom: 2%;
-	width: 90%;
+	width: 100%;
 	padding: 5%;
 	border-radius: 4px;
 	border: 1px solid black;
 }
-.login_button{
+
+.register_button{
 	background-color: #523be4;
 	color: white;
-	padding: 4%;
+	padding: 5%;
 	margin-top: 4%;
 	border-radius: 50px;
 	box-shadow: none;
 	border-style: none;
 	align-self: center;
 }
-.login_button_text{
+.register_button_text{
 	font-weight: bolder;
 }
-
+.register-h3 {
+	padding: 2%;
+    font-size: 30px;
+    line-height: 36px;
+	text-align: left;
+}
 .login_link{
 	margin-top: 10%;
 	display: flex;
 	justify-content: center;
 	width: 100%;
+	cursor: pointer;
 
-}
-.logo{
-	align-self: center;
-}
-
-.login-h3 {
-	padding: 2%;
-	font-weight: 600;
-    font-size: 30px;
-    line-height: 36px;
-	text-align: center;
-}
-
-.login-h4{
-	padding:2%;
 }

@@ -1,0 +1,26 @@
+.navbar-custom {
+  background-color: #D3E4ED;
+ 
+}
+.navbar{
+  padding-right: 10px;
+}
+.navbar-brand{
+  margin-left: 15px;
+  color:black;
+  font-weight: bold;
+}
+
+.navbar-brand:hover{
+  color:black !important;
+}
+
+.navbar-li {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+.navbar-logo{
+  width: 50px;
+  margin-right: 10px;
+}
