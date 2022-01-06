@@ -4,7 +4,6 @@ import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Dashboard from './Components/Dashboard/Dashboard';
 import Register from './Components/Register/Register';
-import Sidebar from './Components/Dashboard/Sidebar';
 import Component2 from './Components/Dashboard/Component2';
 import { useEffect, useState } from 'react';
 import { useDispatch } from "react-redux";
@@ -15,6 +14,10 @@ import CreateRide from './Components/Dashboard/Driver/CreateRide';
 import Loader from './Components/Common/Loader';
 import ViewActiveRides from './Components/Dashboard/Driver/ViewActiveRides';
 import ViewPastRides from './Components/Dashboard/Driver/ViewPastRides';
+import BookRide from './Components/Dashboard/Rider/BookRide';
+import ViewBookings from './Components/Dashboard/Rider/ViewBookings';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function App() {
@@ -113,10 +116,16 @@ function App() {
               <Dashboard Page={Component2} />
               </RiderPrivateRoute>
           } />
-          <Route path="/dashboard/book"
+          <Route path="/dashboard/rider/book"
+          element={
+            <RiderPrivateRoute>
+              <Dashboard Page={BookRide} />
+              </RiderPrivateRoute>
+          } />
+          <Route path="/dashboard/rider/viewbookings"
           element={
             <PrivateRoute>
-              <Dashboard Page={Component2} />
+              <Dashboard Page={ViewBookings} />
               </PrivateRoute>
           } />
           <Route path='/signup' element={
@@ -126,6 +135,7 @@ function App() {
             }            
           />
         </Routes>
+        <ToastContainer position="top-center"/>
       </BrowserRouter>
       </div>
     </div>

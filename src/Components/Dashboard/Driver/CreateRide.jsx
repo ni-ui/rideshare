@@ -7,7 +7,6 @@ import { useDispatch } from 'react-redux';
 import { createRide } from '../../../redux/Thunks/DriverThunk';
 import { useNavigate } from 'react-router-dom';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import GroupsIcon from '@mui/icons-material/Groups';
 import PaidIcon from '@mui/icons-material/Paid';
 import DepartureBoardIcon from '@mui/icons-material/DepartureBoard';
@@ -89,7 +88,7 @@ const CreateRide = () =>{
          <div style={{display:"flex", width: "100%"}}><GroupsIcon fontSize='large'/>  <input class="createride_input" type="number" name="capacity" placeholder="Capacity" /></div>
         <p className="error-warning">{error.capacity}</p>
         <div style={{display:"flex", width: "100%"}}><PaidIcon fontSize='large'/> <input class="createride_input" type="number" name="fare" placeholder="Fare"/></div>
-        <p className="error-warning">{error.fare}</p>
+        {/* <p className="error-warning">{error.fare}</p> */}
 
         <button class = "createride_button" type="submit">
 		    <span class="createride_button_text">Create</span>

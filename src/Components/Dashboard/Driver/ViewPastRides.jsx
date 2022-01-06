@@ -33,6 +33,7 @@ const ViewPastRides = () =>{
     };
 
     const rides = useSelector((state)=>state.driver.rides)
+    let pastRides = []
     console.log("RIDES",rides)
 
     useEffect(() => { 
@@ -43,15 +44,20 @@ const ViewPastRides = () =>{
     if(!rides){
         return <Loader/>
     }
+    else{
+      pastRides =  rides.filter(function(ride) {
+        return new Date(ride.when) < new Date();
+      });
+      console.log("Past",pastRides.length)
+    }
 
     return(
         <div className='view-ride-box'>
             <h1>Past Rides</h1>
-            {rides.length? 
-            rides.slice(0, limit).map((ride) =>
+            {pastRides.length > 0 ?
+            pastRides.map((ride) =>
             {
               let date = new Date(ride.when);
-                if(new Date(ride.when) < new Date())
                return( 
                <Card Card variant="outlined" className="ride-card">
                 <CardContent style={{display:"flex", flexDirection:"row"}}>
@@ -86,11 +92,10 @@ const ViewPastRides = () =>{
                   </div>
                 </CardContent>
               </Card>
+              
                 )}
-             ):<div >No Past Rides </div>}
-              <Button onClick={showMore}>
-                Show more
-              </Button>
+             )
+             :<div >No Past Rides </div>}
     </div>
     )
 } 

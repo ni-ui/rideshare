@@ -24,3 +24,25 @@
   width: 50px;
   margin-right: 10px;
 }
+.avatar-button{
+  cursor: pointer;
+}
+.dropdown-menu{
+  position: relative;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 2;
+  transition: all 200ms linear;
+  border-radius: 4px;
+  width: 220px;
+  box-shadow: 0 2px 8px 0 rgba(146, 146, 148, 0.459);
+}
+.dropdown-item:active {
+  color: black !important;
+  background-color:  #e9ecef !important;
+}
+.user-details{
+  padding-left: 15px;
+  font-weight: bold;
+}

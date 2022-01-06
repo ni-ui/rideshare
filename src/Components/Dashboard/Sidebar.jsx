@@ -2,16 +2,30 @@ import React from 'react';
 import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import 'react-pro-sidebar/dist/css/styles.css';
 import '../../styles/sidebar.css'
-import CreateRide from './Driver/CreateRide';
 import  { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
 
 const Sidebar = () =>{
 
 const navigate = useNavigate()
 
+const userType = useSelector((state)=>state.app.user.userType)
+console.log("usertype",userType)
 const createRide = event => {
   event.preventDefault()
   navigate("/dashboard/driver/create")
+
+}
+
+const bookRide = event =>{
+  event.preventDefault()
+  navigate("/dashboard/rider/book")
+}
+
+const viewBookings= event => {
+  event.preventDefault()
+  navigate("/dashboard/rider/viewbookings")
 
 }
 
@@ -30,13 +44,21 @@ const viewPastRides= event => {
     return(
         <div id="header">
         <ProSidebar>
-        <Menu iconShape="square">
+        {
+          userType == "Driver"?
+          <Menu iconShape="square">
           <MenuItem onClick = {createRide}>Create a Ride</MenuItem>
           <SubMenu title="View My Rides" >
             <MenuItem onClick = {viewActiveRides}>Active Rides</MenuItem>
             <MenuItem onClick = {viewPastRides}>Past Rides</MenuItem>
           </SubMenu>
-        </Menu>
+        </Menu> : 
+         <Menu iconShape="square">
+         <MenuItem onClick = {bookRide}>Book a Ride</MenuItem>   
+         <MenuItem onClick = {viewBookings}>View Bookings</MenuItem>
+       </Menu>
+        } 
+       
 </ProSidebar>
 </div>
     )
