@@ -1,35 +1,44 @@
-import React, { useState } from "react";
-
+import React from "react";
 import logo from "../../assets/logo.png"
 
-const StepTwo = ({ nextStep, handleFormData, prevStep, values }) => {
+const StepTwo = ({ nextStep, prevStep, values }) => {
 
-  const [error, setError] = useState(false);
+  const [error, setError] = React.useState({});
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const validation = (payload) => {
+
+        let errors = {
+        email: '',
+        phone: '',
+        name:''}
+
+        let isError = false;
     
 		if (payload.email.value=='') {
-			return false;
+            errors.email = "Email is required"
+			isError = true;
 		} 
         if(!/\S+@\S+\.\S+/.test(payload.email.value)){
-			return false;
+            errors.email = "Invalid email"
+			isError = true;
 	    }
         if (payload.name.value=='') {
-			return false;
+            errors.name = "Name is required"
+			isError = true;
 		  } 
         if (payload.phone.value=='') {
-			return false
+            errors.phone = "Phone is required"
+			isError = true;
 		  } 
-		  return true
+		  return {err: errors, check: isError}
 	}
 
-    if (
-     !validation(e.target)
-    ) {
-      setError(true);
-    } else {
+    const err = validation(e.target)
+    setError(err.err)
+    console.log("ERRR", err)
+    if (!err.check) {
         values.email= e.target.email.value;
         values.phone = e.target.phone.value;
         values.name = e.target.name.value;
@@ -48,8 +57,11 @@ const StepTwo = ({ nextStep, handleFormData, prevStep, values }) => {
 		            <h4 style = {{marginTop:"5%"}}>Enter your details!</h4>	
 
                     <input class="register_input" type="text" name="email" placeholder="Email"/>
-                    <input class="register_input" type="text" name="name" placeholder="Name"/>                   		
-                    <input class="register_input" type="text" name="phone" placeholder="Phone Number"/>	                   	
+                    <p className="error-warning">{error.email}</p>
+                    <input class="register_input" type="text" name="name" placeholder="Name"/>   
+                    <p className="error-warning">{error.name}</p>                		
+                    <input class="register_input" type="text" name="phone" placeholder="Phone Number"/>	
+                    <p className="error-warning">{error.phone}</p>                   	
                 <div style={{position:'relative',width:'100%',marginTop:"80px"}}> 
                 <button class = "register_button"style={{position: 'absolute', bottom: '0px',left: '0px'}}  onClick={prevStep} >
 					<span class="register_button_text">Prev</span>

@@ -38,7 +38,9 @@ const BookRide = () =>{
               
             }     
             if(value.error){
-                console.log("there was an error", value)
+              toast.error("Something went wrong", {
+                toastId: 'error3',
+            });
             }})
     }
    

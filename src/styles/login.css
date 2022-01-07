@@ -61,6 +61,10 @@
 	border-style: none;
 	align-self: center;
 }
+.login_button:hover{
+	background-color: #9991cc;
+	color: white;
+}
 .login_button_text{
 	font-weight: bolder;
 }

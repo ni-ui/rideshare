@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import logo from "../../assets/logo.png"
 
-const StepOne = ({ nextStep, handleFormData,values }) => {
-  const [error, setError] = useState(false);
+const StepOne = ({ nextStep, values }) => {
   const navigate = useNavigate();
 
   const onSignIn = event => {

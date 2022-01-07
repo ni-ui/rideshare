@@ -10,6 +10,7 @@ import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import GroupsIcon from '@mui/icons-material/Groups';
 import PaidIcon from '@mui/icons-material/Paid';
 import DepartureBoardIcon from '@mui/icons-material/DepartureBoard';
+import { toast } from 'react-toastify';
 
 const CreateRide = () =>{
 
@@ -25,23 +26,30 @@ const CreateRide = () =>{
 
     const validation = (payload) => {
 		let errors = {};
+    let isError = false;
 
 		if (payload.to=='') {
 			errors.to = 'Destination is required';
+      isError = true
 		} 
         if (payload.from=='') {
 			errors.from = 'Departure point is required';
+      isError = true
 	    }
         if (payload.fare=='') {
 			errors.fare = 'Fare is required';
+      isError = true
 		  }
-          else if  (payload.fare>=250){
-            errors.fare = 'Max limit reached';
-          } 
-        if (payload.capacity=='') {
+      if  (payload.fare>=25000){
+        errors.fare = 'Max limit reached';
+        isError = true
+      } 
+      if (payload.capacity=='') {
 			errors.capacity = 'Capacity is required';
+       isError = true
 		  } 
-		  return errors
+      const err = {err: errors,check: isError}
+		  return err
 	}
     const handleSubmit = event => {
         event.preventDefault();  
@@ -55,17 +63,26 @@ const CreateRide = () =>{
     
         const payload = {to,from,fare,capacity,when}
         console.log("PAYLOAD",payload)
-        setError(validation(payload));
+
+        const err = validation(payload)
+        console.log(err)
+        setError(err.err);
         
+        if(!err.check){
         dispatch(createRide(payload)).then(value=>{
            // const response = value.payload
             if(value.payload && value.payload.status == 200){
+                  toast("Ride created succesfully!", {
+                    toastId: 'success2',
+                })
                     navigate("/",{replace:true})
             }     
             if(value.error){
-                console.log("there was an error", value)
+              toast.error("Something went wrong", {
+                toastId: 'error1',
+            })
             }})
-        }
+        }}
     return(
         <div class="createride_box">
         <form class="createride_form" onSubmit={handleSubmit}>
@@ -88,7 +105,7 @@ const CreateRide = () =>{
          <div style={{display:"flex", width: "100%"}}><GroupsIcon fontSize='large'/>  <input class="createride_input" type="number" name="capacity" placeholder="Capacity" /></div>
         <p className="error-warning">{error.capacity}</p>
         <div style={{display:"flex", width: "100%"}}><PaidIcon fontSize='large'/> <input class="createride_input" type="number" name="fare" placeholder="Fare"/></div>
-        {/* <p className="error-warning">{error.fare}</p> */}
+        <p className="error-warning">{error.fare}</p>
 
         <button class = "createride_button" type="submit">
 		    <span class="createride_button_text">Create</span>

@@ -18,12 +18,14 @@ import BookRide from './Components/Dashboard/Rider/BookRide';
 import ViewBookings from './Components/Dashboard/Rider/ViewBookings';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Profile from './Components/Dashboard/Profile';
 
 
 function App() {
   const user=useSelector((state)=>state.app.user);  
   const dispatch = useDispatch();
   const isLoading=useSelector((state)=>state.app.isInitialised);
+ 
   const PrivateRoute = ({children}) =>{
     const user=useSelector((state)=>state.app.user);
     return user ? children:<Navigate to="/" />
@@ -41,6 +43,7 @@ function App() {
     return user && user.userType==="Rider" ? children:<Navigate to="/" />
 
   }
+
   const PublicRoute = ({children}) =>{
     const user=useSelector((state)=>state.app.user);
     return user ? <Navigate to={`/dashboard/${String(user.userType).toLowerCase()}`} />:children;
@@ -124,8 +127,14 @@ function App() {
           } />
           <Route path="/dashboard/rider/viewbookings"
           element={
-            <PrivateRoute>
+            <RiderPrivateRoute>
               <Dashboard Page={ViewBookings} />
+              </RiderPrivateRoute>
+          } />
+          <Route path="/dashboard/profile"
+          element={
+            <PrivateRoute>
+              <Dashboard Page={Profile} />
               </PrivateRoute>
           } />
           <Route path='/signup' element={
