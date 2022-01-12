@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getRides, getBookings } from '../Thunks/RiderThunk';
+import { getRides, getBookings} from '../Thunks/RiderThunk';
 
 const initialState = {
   rides: null,
-  bookings: null
+  bookings: null,
 }
 
 export const riderSlice = createSlice({

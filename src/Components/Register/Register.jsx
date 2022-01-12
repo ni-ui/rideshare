@@ -2,6 +2,7 @@ import { useState } from "react";
 import StepOne from "./StepOne";
 import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
+import StepFour from "./StepFour";
 
 function Register() {
 
@@ -12,7 +13,9 @@ function Register() {
     email: "",
     phone:"",
     password: "",
-    userType: ""
+    userType: "",
+    defaultAddress: "",
+    city: ""
   })
 
   const nextStep = () => {
@@ -47,7 +50,11 @@ function Register() {
       );
     case 3:
       return (
-        <StepThree prevStep={prevStep} values={formData}  />
+        <StepThree nextStep={nextStep} prevStep={prevStep} handleFormData={handleInputData} values={formData}  />
+      );
+    case 4:
+      return (
+        <StepFour prevStep={prevStep} values={formData}  />
       );
     default:
       return (

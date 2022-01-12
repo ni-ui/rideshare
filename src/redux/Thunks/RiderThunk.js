@@ -1,11 +1,18 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import API from "../../services/api/ApiService";
 
+
 export const bookRide = createAsyncThunk(
     'RiderThunk/BookRide',
-    async (payload) => {
-        const response = await API.post('/bookings/book-a-ride',payload);
-        return await response;
+    async (payload, {rejectWithValue}) => {
+        try{
+            const response = await API.post('/bookings/book-a-ride', payload)
+            return response;
+        }
+        catch (e){
+            return rejectWithValue(e.response.data);
+        }
+    
     }
 )
 

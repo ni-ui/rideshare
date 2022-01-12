@@ -4,6 +4,7 @@
 @import "./styles/navbar.css";
 @import "./styles/createride.css";
 @import "./styles/viewride.css";
+@import "./styles/profile.css";
 @import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@200&family=Raleway:wght@200;500&display=swap');
 body {
   margin: 0;
@@ -30,15 +31,14 @@ code {
 .bodyComponent{
   max-height: 100vh;
   width: 100vw;
-  overflow-y: auto;
   
 }
 
 .nav-link{
   cursor: pointer;
-  color: gray !important;
+  color: black !important;
 }
-.nav-link:hover, .nav-link:focus, .nav-link:active {color: black !important}
+.nav-link:hover, .nav-link:active {color: gray!important}
 
 .loader{
   width: 100vw;
@@ -50,4 +50,10 @@ code {
 }
 .footer{
   background-color: blanchedalmond;
+}
+body::-webkit-scrollbar {
+  width: 5px;               /* width of the entire scrollbar */
+}
+body::-webkit-scrollbar-track {
+  background: rgb(189, 188, 186);        /* color of the tracking area */
 }

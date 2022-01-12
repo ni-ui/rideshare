@@ -11,6 +11,9 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import PaidIcon from '@mui/icons-material/Paid';
 import DepartureBoardIcon from '@mui/icons-material/DepartureBoard';
 import { toast } from 'react-toastify';
+import MapSection from '../../Common/Map'
+
+
 
 const CreateRide = () =>{
 
@@ -20,6 +23,10 @@ const CreateRide = () =>{
     const [date, setDate] = React.useState(new Date());
     const [error, setError] = React.useState({});
 
+    const location = {
+      lat: 24.935101549207285,
+      lng:67.06534204041614
+    }
     const handleChange = (newValue) => {
         setDate(newValue);
     }
@@ -110,7 +117,10 @@ const CreateRide = () =>{
         <button class = "createride_button" type="submit">
 		    <span class="createride_button_text">Create</span>
 		</button>
-        </form>            
+        </form>
+        <div class='map-container'>
+        <MapSection location={location} zoomLevel={17} /> 
+        </div>        
         </div>
     )
 } 

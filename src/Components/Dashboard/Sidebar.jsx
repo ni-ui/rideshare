@@ -41,6 +41,7 @@ const viewPastRides= event => {
 
 }
 
+
     return(
         <div id="header">
         <ProSidebar>

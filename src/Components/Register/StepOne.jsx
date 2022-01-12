@@ -33,7 +33,7 @@ const StepOne = ({ nextStep, values }) => {
 					<span class="register_button_text">Next</span>
 				</button>
 
-                <div class ="login_link">
+        <div class ="login_link">
 				<span>Already have an account?</span> <a style={{color:"#523be4", fontWeight:"bolder"}} onClick={onSignIn}>&nbsp;Sign In</a>
 				</div>	
                 				

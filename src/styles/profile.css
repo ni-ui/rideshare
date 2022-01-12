@@ -1,0 +1,130 @@
+.profile-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.profile-avatar{
+    margin-top: 50px;
+    padding-right: 40px;
+}
+.profile-location{
+    text-align: left;
+}
+.profile-username{
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: left;
+
+ } 
+ .profile-box{
+    height: auto;
+    width: auto;
+ }
+ .profile-form-box{
+    display: flex;
+    flex-direction: column;
+
+    border: 1px solid rgb(180, 176, 176);
+    border-top: 5px solid #D3E4ED;
+    border-radius: 2%;
+    margin-top: 40px;
+    font-size: large;
+    padding: 20px 50px 50px 50px;
+    width: 75%;
+ }
+.profile-form{
+    
+    width: 90%;
+    margin-top: 10px;
+    
+}
+.profile-navtab{
+    margin-bottom: 20px;
+}
+.profile-form-heading{
+    font-size: 25px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-align: left;
+}
+.profile-form-input{
+    margin-top: 2%;
+	margin-bottom: 2%;
+	width: 100%;
+	padding: 2%;
+	border-radius: 4px;
+	border: 1px solid black;
+}
+.profile-form-details{
+    padding-left: 20px;
+    width: 70%;
+}
+
+.profile-detail{
+    display: flex;
+    flex-direction: row;
+    
+}
+.profile-detail-password{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    
+}
+.profile-detail-name{
+    margin-top: 20px;
+    width: 30%;
+    text-align: left;
+    font-weight: bold;
+    
+}.password-detail{
+    margin-top: 20px;
+    width: 40%;
+    text-align: left;
+    margin-right: 30px;
+    font-weight: bold;
+}
+.edit-icon-container{
+    width: auto;
+    padding-left: 1%;
+    padding-top: 2%;
+}
+.saved-locations-box{
+    height: 250px;
+    width: 300px;
+    border: 1px solid rgb(180, 176, 176);
+    border-top: 5px solid #D3E4ED;
+    border-radius: 2%;
+}
+
+.editprofile_button{
+    margin-top: 20%;
+    display:inline-block;
+    padding:0.3em 1.2em;
+    margin:1em 0.1em 0.1em 1em;
+    border:0.16em solid rgba(255,255,255,0);
+    border-radius:2em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Roboto',sans-serif;
+    font-weight:300;
+    background-color:#523be4;
+    text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
+    color: white;
+    text-align:center;
+    transition: all 0.2s;
+}
+@media all and (max-width:30em){
+    .editprofile_button{
+    display:block;
+    margin:0.2em auto;
+    }
+}
+.editprofile_button:hover{
+	background-color: #9991cc;
+	color: white;
+    border-color: rgba(255,255,255,1);
+}

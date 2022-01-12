@@ -1,12 +1,11 @@
 import React,{useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { getBookings } from '../../../redux/Thunks/RiderThunk';
 import Loader from '../../Common/Loader';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import { List, ListItem, ListItemText } from '@mui/material';
+import { List, ListItem} from '@mui/material';
 import MapSection from '../../Common/Map'
 import TripOriginIcon from '@mui/icons-material/TripOrigin';
 import CircleIcon from '@mui/icons-material/Circle';
@@ -15,7 +14,6 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const ViewBookings = () =>{
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const location = {
       address: '1600 Amphitheatre Parkway, Mountain View, california.',
@@ -25,7 +23,6 @@ const ViewBookings = () =>{
     
 
     const bookings = useSelector((state)=>state.rider.bookings)
-    let activeRides = []
 
     useEffect(() => { 
         dispatch(getBookings())

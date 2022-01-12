@@ -1,39 +1,37 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import {toast} from "react-toastify"
 import logo from "../../assets/logo.png"
-import { registerUser } from "../../redux/Thunks/AuthThunk";
 
-const StepThree = ({ prevStep, values }) => {
+const StepThree = ({ nextStep, prevStep, values }) => {
 
   const [error, setError] = React.useState({});
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const onSignIn = event => {
+    event.preventDefault()
+    navigate("/")
+}
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const validation = (payload) => {
         let errors = {
-            password: '',
-            confirmpassword: ''}
+            city: '',
+            address: ''}
 
         let isError = false;
     
-		if (payload.password.value=='') {
-			errors.password = "Password is required";
+		if (payload.city.value=='') {
+			errors.city = "City is required";
             isError = true;
 		} 
-        if(payload.password.value.length < 8 ){
-			errors.password = "Password length should be at least 8 characters";
+        if (payload.address.value=='') {
+			errors.address = "Address is required";
             isError = true;
-	    }
-        if (payload.confirmpassword.value != payload.password.value){
-			errors.confirmpassword = "Passwords don't match";
-            isError = true;
-        }
+		} 
+        
         return {err: errors, check: isError}
 	}
 
@@ -41,18 +39,9 @@ const StepThree = ({ prevStep, values }) => {
     setError(err.err)
 
     if (!err.check){
-        values.password= e.target.password.value;
-        const payload = values;
-        dispatch(registerUser(payload)).then(value=>{
-            if(value.payload && value.payload.status == 200){
-                    navigate("/",{replace:true})
-            }     
-            if(value.error){
-                toast.error("Something went wrong", {
-                    toastId: 'error2',
-                })
-            }})
-      
+        values.city= e.target.city.value;
+        values.defaultAddress= e.target.address.value;
+        nextStep();
     }
   };
 
@@ -63,24 +52,27 @@ const StepThree = ({ prevStep, values }) => {
 			<form class="register_form" onSubmit={handleSubmit}>
 
                     <h2 class="register-h3">Sign up to drive</h2>
-		            <h5 style = {{marginTop:"5%", marginBottom:'10px'}}>Set password!</h5>	
+		            <h5 style = {{marginTop:"5%", marginBottom:'10px'}}>Please enter your details!</h5>	
 
-                    <input class="register_input" type="password" name="password" placeholder="Password"/>
-                    <p className="error-warning">{error.password}</p>
-                    <input class="register_input" type="password" name="confirmpassword" placeholder="Confirm Password"/>
-                    <p className="error-warning">{error.confirmpassword}</p>
+                    <input class="register_input" type="text" name="city" placeholder="City"/>
+                    <p className="error-warning">{error.city}</p>
+                    <input class="register_input" type="text" name="address" placeholder="Address"/>
+                    <p className="error-warning">{error.address}</p>
                     	
                 <div style={{position:'relative',width:'100%',marginTop:"80px"}}> 
                 <button class = "register_button"style={{position: 'absolute', bottom: '0px',left: '0px'}}  onClick={prevStep} >
-					<span class="register_button_text">Prev</span>
+					<span class="register_button_text">&nbsp;&nbsp;Prev&nbsp;&nbsp;</span>
 				</button>    
 				<button class = "register_button" style={{position: 'absolute', bottom: '0px',right: '0px'}} type="submit">
-					<span class="register_button_text">Sign Up</span>
+					<span class="register_button_text">&nbsp;Next&nbsp;&nbsp;</span>
 				</button>
-                </div>           				
-			</form>
-	</div>
-</div>
+                </div>
+                <div class ="login_link">
+                <span>Already have an account?</span> <a style={{color:"#523be4", fontWeight:"bolder"}} onClick={onSignIn}>&nbsp;Sign In</a>
+                </div>             				
+			    </form>
+	        </div>
+        </div>
   );
 };
 

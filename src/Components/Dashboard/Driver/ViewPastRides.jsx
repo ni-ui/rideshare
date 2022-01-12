@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getRides } from '../../../redux/Thunks/DriverThunk';
-import { useNavigate } from 'react-router-dom';
 import Loader from '../../Common/Loader';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import { List, ListItem, ListItemText } from '@mui/material';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import { List, ListItem } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import PaidIcon from '@mui/icons-material/Paid';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import MapSection from '../../Common/Map'
 import TripOriginIcon from '@mui/icons-material/TripOrigin';
@@ -19,7 +15,6 @@ import CircleIcon from '@mui/icons-material/Circle';
 const ViewPastRides = () =>{
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const [limit, setLimit] = useState(3);
 
     const location = {
@@ -28,10 +23,6 @@ const ViewPastRides = () =>{
       lng: -122.08427,
     }
     
-    const showMore = () => {
-      setLimit(limit + 3);
-    };
-
     const rides = useSelector((state)=>state.driver.rides)
     let pastRides = []
     console.log("RIDES",rides)
@@ -67,7 +58,7 @@ const ViewPastRides = () =>{
                 <div style={{display: "flex", flexDirection: "column",marginLeft:"20px"}}>
                   <div style={{ display: "flex", flexDirection: "row",marginLeft:"15px"}}>
                     <AccessTimeIcon/>  
-                    <div  style={{ marginLeft:"10px"}}>{date.getHours()}:{date.getMinutes()} {date.getDate()}/{date.getMonth()}/{date.getFullYear()}</div>
+                    <div  style={{ marginLeft:"10px"}}>{date.getHours()}:{date.getMinutes()} {date.getDate()}/{date.getMonth()+1}/{date.getFullYear()}</div>
                   </div>
                   <List>
                   <ListItem>

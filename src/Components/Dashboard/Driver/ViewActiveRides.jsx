@@ -7,10 +7,11 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import { List, ListItem, ListItemText } from '@mui/material';
+import { List, ListItem} from '@mui/material';
 import MapSection from '../../Common/Map'
 import TripOriginIcon from '@mui/icons-material/TripOrigin';
 import CircleIcon from '@mui/icons-material/Circle';
+
 
 const ViewActiveRides = () =>{
 
@@ -60,7 +61,7 @@ const ViewActiveRides = () =>{
               <div style={{display: "flex", flexDirection: "column",marginLeft:"20px"}}>
                 <div style={{ display: "flex", flexDirection: "row",marginLeft:"15px"}}>
                   <AccessTimeIcon/>  
-                  <div  style={{ marginLeft:"10px"}}>{date.getHours()}:{date.getMinutes()} {date.getDate()}/{date.getMonth()}/{date.getFullYear()}</div>
+                  <div  style={{ marginLeft:"10px"}}>{date.getHours()}:{date.getMinutes()} {date.getDate()}/{date.getMonth()+1}/{date.getFullYear()}</div>
                 </div>
                 <List>
                 <ListItem>

@@ -1,9 +1,17 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png"
 
 const StepTwo = ({ nextStep, prevStep, values }) => {
 
   const [error, setError] = React.useState({});
+  const navigate = useNavigate();
+
+  const onSignIn = event => {
+    event.preventDefault()
+    navigate("/")
+}
+  
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -28,10 +36,18 @@ const StepTwo = ({ nextStep, prevStep, values }) => {
             errors.name = "Name is required"
 			isError = true;
 		  } 
+      if (payload.name.value.length < 5) {
+        errors.name = "Name length should be atleast 5 characters"
+        isError = true;
+        } 
         if (payload.phone.value=='') {
             errors.phone = "Phone is required"
 			isError = true;
 		  } 
+      if (payload.phone.value.length != 10) {
+        errors.phone = "Phone length should be 10 digits"
+        isError = true;
+        } 
 		  return {err: errors, check: isError}
 	}
 
@@ -62,14 +78,18 @@ const StepTwo = ({ nextStep, prevStep, values }) => {
                     <p className="error-warning">{error.name}</p>                		
                     <input class="register_input" type="text" name="phone" placeholder="Phone Number"/>	
                     <p className="error-warning">{error.phone}</p>                   	
-                <div style={{position:'relative',width:'100%',marginTop:"80px"}}> 
+               
+                <div style={{position:'relative',width:'100%',marginTop:"60px"}}> 
                 <button class = "register_button"style={{position: 'absolute', bottom: '0px',left: '0px'}}  onClick={prevStep} >
-					<span class="register_button_text">Prev</span>
-				</button>    
-				<button class = "register_button" style={{position: 'absolute', bottom: '0px',right: '0px'}} type="submit">
-					<span class="register_button_text">Next</span>
-				</button>
-                </div>           				
+                  <span class="register_button_text">&nbsp;&nbsp;Prev&nbsp;&nbsp;</span>
+                </button>    
+                <button class = "register_button" style={{position: 'absolute', bottom: '0px',right: '0px'}} type="submit">
+                  <span class="register_button_text">&nbsp;Next&nbsp;&nbsp;</span>
+                </button>
+                </div> 
+                <div class ="login_link_steptwo">
+				        <span>Already have an account?</span> <a style={{color:"#523be4", fontWeight:"bolder"}} onClick={onSignIn}>&nbsp;Sign In</a>
+				        </div>          				
 			</form>
 	</div>
 </div>

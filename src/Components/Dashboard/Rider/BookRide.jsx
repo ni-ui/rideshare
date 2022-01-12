@@ -10,12 +10,10 @@ import TripOriginIcon from '@mui/icons-material/TripOrigin';
 import CircleIcon from '@mui/icons-material/Circle';
 import { bookRide } from '../../../redux/Thunks/RiderThunk';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
 
 const BookRide = () =>{
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
    
     const location = {
       address: '1600 Amphitheatre Parkway, Mountain View, california.',
@@ -24,13 +22,11 @@ const BookRide = () =>{
     } 
 
     const rides = useSelector((state)=>state.rider.rides)
-    // const notify = () => toast("Ride booked succesfully!");
     
     const onBook = (id) =>{
         const payload = {ride:id}
          
         dispatch(bookRide(payload)).then(value=>{
-           const response = value.payload
             if(value.payload && value.payload.status == 200){
               toast("Ride booked succesfully!", {
                 toastId: 'success1',
@@ -38,7 +34,7 @@ const BookRide = () =>{
               
             }     
             if(value.error){
-              toast.error("Something went wrong", {
+              toast.error(value.payload, {
                 toastId: 'error3',
             });
             }})

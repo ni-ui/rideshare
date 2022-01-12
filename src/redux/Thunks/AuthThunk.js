@@ -3,17 +3,29 @@ import API from "../../services/api/ApiService";
 
 export const loginUser = createAsyncThunk(
     'AuthThunk/LoginUser',
-    async (payload) => {
-     const response = await API.post('/auth', payload);
-        return await response;
+    async (payload, {rejectWithValue}) => {
+        try{
+            const response = await API.post('/auth', payload);
+            return response;
+        }
+        catch (e){
+            return rejectWithValue(e.response.data)
+        }
+    
     }
 )
 
 export const registerUser = createAsyncThunk(
     'AuthThunk/RegisterUser',
-    async (payload) => {
-     const response = await API.post('/users', payload);
-        return await response;
+    async (payload, {rejectWithValue}) => {
+        try{
+            const response = await API.post('/users', payload)
+            return response;
+        }
+        catch (e){
+            return rejectWithValue(e.response.data)
+        }
+    
     }
 )
 

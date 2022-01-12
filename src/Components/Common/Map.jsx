@@ -3,17 +3,18 @@ import GoogleMapReact from 'google-map-react'
 import './map.css'
 
 const Map = ({ location, zoomLevel }) => (
-    <div className="map">
-      <div className="google-map">
+
         <GoogleMapReact
-          bootstrapURLKeys={{ key: '' }}
+          bootstrapURLKeys={{ 
+          key: "AIzaSyBm13tDUmjrMlOIouKnd4Z5XZAs7X03GP0",
+          language: "en",
+          region: "Pakistan" }}
           defaultCenter={location}
           defaultZoom={zoomLevel}
         >
          
         </GoogleMapReact>
-      </div>
-    </div>
+
   )
 
   export default Map;

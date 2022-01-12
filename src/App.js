@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import Dashboard from './Components/Dashboard/Dashboard';
 import Register from './Components/Register/Register';
 import Component2 from './Components/Dashboard/Component2';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch } from "react-redux";
 import { getMe } from './redux/Thunks/AuthThunk';
 import API from "./services/api/ApiService";
@@ -18,7 +18,7 @@ import BookRide from './Components/Dashboard/Rider/BookRide';
 import ViewBookings from './Components/Dashboard/Rider/ViewBookings';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Profile from './Components/Dashboard/Profile';
+import Profile from './Components/Dashboard/Profile/Profile';
 
 
 function App() {
@@ -58,7 +58,7 @@ function App() {
         if(!value.error && value.payload.status===200)
         dispatch(setUser(value.payload.data));
         else{
-          const token = localStorage.removeItem("carpool-auth-token")
+          localStorage.removeItem("carpool-auth-token")
           dispatch(setInitialised(true));
           dispatch(setUser(null))
         }
@@ -67,7 +67,7 @@ function App() {
     }
 
     else{
-      const token = localStorage.removeItem("carpool-auth-token")
+      localStorage.removeItem("carpool-auth-token")
       dispatch(setInitialised(true));
       dispatch(setUser(null))
 
