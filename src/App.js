@@ -20,6 +20,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Profile from './Components/Dashboard/Profile/Profile';
 import ForgotPassword from './Components/Login/ForgotPassword';
+import ResetPassword from './Components/Login/ResetPassword';
 
 
 function App() {
@@ -93,6 +94,12 @@ function App() {
           <Route path='/forgotpassword' element={
             <PublicRoute>
             <ForgotPassword/>
+            </PublicRoute>
+           }
+          /> 
+          <Route path='/resetPassword' element={
+            <PublicRoute>
+            <ResetPassword/>
             </PublicRoute>
            }
           />          

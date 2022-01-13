@@ -43,6 +43,20 @@ export const forgotPassword = createAsyncThunk(
     }
 )
 
+export const resetPassword = createAsyncThunk(
+    'AuthThunk/ResetPassword',
+    async (payload, {rejectWithValue}) => {
+        try{
+            const response = await API.post('/auth/reset-password', payload)
+            return response;
+        }
+        catch (e){
+            return rejectWithValue(e.response.data)
+        }
+    
+    }
+)
+
 export const getMe = createAsyncThunk(
     'AuthThunk/GetMe',
     async () => {
