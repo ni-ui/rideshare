@@ -2,7 +2,7 @@ import  { useState} from "react";
 import { useDispatch } from "react-redux";
 import API from "../../services/api/ApiService";
 import  { useNavigate } from 'react-router-dom';
-import { loginUser } from "../../redux/Thunks/AuthThunk";
+import { forgotPassword, loginUser } from "../../redux/Thunks/AuthThunk";
 import logo from "../../assets/logo.png"
 import { toast } from 'react-toastify';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -36,6 +36,11 @@ export default function Login() {
 		navigate("/signup")
 	}
 
+	const onForgot = event => {
+		event.preventDefault()
+		navigate("/forgotpassword")
+	}
+
 	const handleSubmit = event => {
 	setError({})
     event.preventDefault();
@@ -45,8 +50,7 @@ export default function Login() {
 
 	setError(validation(email,password));
 	console.log(event.target.email.value, event.target.password.value)
-	
-	//if(Object.keys(error).length === 0){
+
 	dispatch(loginUser(payload)).then(value=>{
 		// const response = value.payload
 		if (value.payload && value.payload.status == 200){
@@ -89,11 +93,11 @@ export default function Login() {
 					<p className="error-warning">{error.password}</p>
 
 					<div class ="forgot_password">
-				<a style={{fontWeight:"bolder"}} onClick={onSignUp}>&nbsp;Forgot Password?</a>
+				<a style={{fontWeight:"bolder"}} onClick={onForgot}>&nbsp;Forgot Password?</a>
 				</div>	
 
-				<button class = "login_button" type="submit">
-					<span class="login_button_text">Log In</span>
+				<button class = "login_button"  type="submit">
+					<span class="login_button_text" >Log In</span>
 				</button>	
 
 				<div class ="login_link">

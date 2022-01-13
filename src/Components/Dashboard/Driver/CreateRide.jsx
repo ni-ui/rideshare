@@ -35,23 +35,23 @@ const CreateRide = () =>{
 		let errors = {};
     let isError = false;
 
-		if (payload.to=='') {
+		if (payload.to === '') {
 			errors.to = 'Destination is required';
       isError = true
 		} 
-        if (payload.from=='') {
+        if (payload.from === '') {
 			errors.from = 'Departure point is required';
       isError = true
 	    }
-        if (payload.fare=='') {
+        if (payload.fare === '') {
 			errors.fare = 'Fare is required';
       isError = true
 		  }
-      if  (payload.fare>=25000){
+      if  (payload.fare >= 25000){
         errors.fare = 'Max limit reached';
         isError = true
       } 
-      if (payload.capacity=='') {
+      if (payload.capacity ==='') {
 			errors.capacity = 'Capacity is required';
        isError = true
 		  } 
@@ -69,35 +69,40 @@ const CreateRide = () =>{
 
     
         const payload = {to,from,fare,capacity,when}
-        console.log("PAYLOAD",payload)
 
         const err = validation(payload)
-        console.log(err)
         setError(err.err);
         
         if(!err.check){
         dispatch(createRide(payload)).then(value=>{
-           // const response = value.payload
-            if(value.payload && value.payload.status == 200){
-                  toast("Ride created succesfully!", {
-                    toastId: 'success2',
-                })
+            if(value.payload && value.payload.status === 200){
+                  toast("Ride created succesfully!")
                     navigate("/",{replace:true})
             }     
             if(value.error){
-              toast.error("Something went wrong", {
-                toastId: 'error1',
-            })
+              toast.error("Something went wrong")
             }})
         }}
     return(
         <div class="createride_box">
         <form class="createride_form" onSubmit={handleSubmit}>
-            
-       <div style={{display:"flex", width: "100%"}}><DirectionsCarIcon fontSize='large'/> <input class="createride_input" type="text" name="to" placeholder="Where To?"/> </div> 
+        <h1 class="createride-h3" >Karachi</h1>
+       <div style={{display:"flex", width: "100%"}}>
+       <label for="focus-where" style={{cursor:"pointer"}}>
+         <DirectionsCarIcon fontSize='large'/> 
+        </label>
+         <input id="focus-where" class="createride_input" type="text" name="to" placeholder="Where To?"/> 
+         </div> 
         <p className="error-warning">{error.to}</p>
-		<div style={{display:"flex", width: "100%"}}><DirectionsCarIcon fontSize='large'/> <input class="createride_input" type="text" name="from" placeholder="From Where?"/></div> 
+
+		  <div style={{display:"flex", width: "100%"}}>
+      <label for="focus-to" style={{cursor:"pointer"}}> 
+        <DirectionsCarIcon fontSize='large'/> 
+        </label>
+        <input id="focus-to" class="createride_input" type="text" name="from" placeholder="From Where?"/>
+        </div> 
         <p className="error-warning">{error.from}</p>
+
         <div style={{marginTop:"15px",marginBottom:"15px",display:"flex", width: "100%"}}>
         <DepartureBoardIcon  style={{marginRight:"15px"}} fontSize='large'/>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -109,9 +114,21 @@ const CreateRide = () =>{
         />
          </LocalizationProvider>
          </div>
-         <div style={{display:"flex", width: "100%"}}><GroupsIcon fontSize='large'/>  <input class="createride_input" type="number" name="capacity" placeholder="Capacity" /></div>
+         
+         <div style={{display:"flex", width: "100%"}}>
+           <label for="focus-cap" style={{cursor:"pointer"}}>
+           <GroupsIcon fontSize='large'/> 
+           </label>
+          <input id= "focus-cap" class="createride_input" type="number" name="capacity" placeholder="Capacity" />
+          </div>
         <p className="error-warning">{error.capacity}</p>
-        <div style={{display:"flex", width: "100%"}}><PaidIcon fontSize='large'/> <input class="createride_input" type="number" name="fare" placeholder="Fare"/></div>
+        
+        <div style={{display:"flex", width: "100%"}}>
+        <label for="focus-fare" style={{cursor:"pointer"}}>
+           <PaidIcon fontSize='large'/> 
+           </label>
+           <input id= "focus-fare" class="createride_input" type="number" name="fare" placeholder="Fare"/>
+           </div>
         <p className="error-warning">{error.fare}</p>
 
         <button class = "createride_button" type="submit">

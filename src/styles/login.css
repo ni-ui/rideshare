@@ -41,7 +41,21 @@
 	justify-content: center;
 }
 
+.fp_box{
+	width: 100%;
+	height: 100%;
+	display:flex;
+	align-items: center;
+	justify-content: center;
 }
+
+}
+
+@media screen and (min-width: 768px){
+	.fp_box{
+		width: 30%;
+	}
+	}
 
 .login_input{
 	margin-top: 2%;
@@ -124,4 +138,31 @@
 display: flex;
 flex-direction: row;
 justify-content: center;
+}
+
+.email-container{
+	width: 100%;
+display: flex;
+flex-direction: column;
+justify-content: center;
+}
+
+.fp_box{
+	background-color: white;
+	border-radius: 8px;
+	box-shadow: rgb(0 0 0 / 12%) 0px 0px 1px 0px, rgb(0 0 0 / 16%) 0px 0px 14px 0px;
+	padding: 4% 2% 2% 2%;
+	flex-direction: column;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.fp_form{
+	width: 90%;
+	margin-top: 7%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 }

@@ -19,6 +19,7 @@ import ViewBookings from './Components/Dashboard/Rider/ViewBookings';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Profile from './Components/Dashboard/Profile/Profile';
+import ForgotPassword from './Components/Login/ForgotPassword';
 
 
 function App() {
@@ -88,7 +89,13 @@ function App() {
             <Login/>
             </PublicRoute>
            }
-             />
+          />
+          <Route path='/forgotpassword' element={
+            <PublicRoute>
+            <ForgotPassword/>
+            </PublicRoute>
+           }
+          />          
           <Route path="/dashboard/driver"
           element={
             <DriverPrivateRoute>

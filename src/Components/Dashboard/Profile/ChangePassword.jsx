@@ -45,7 +45,9 @@ const ChangePassword = () =>{
         setError(err.err)
 
         if(!err.check){
-        const payload = {id: user._id, payload: {oldPassword: event.target.oldpassword.value, newPassword: event.target.password.value}};
+        const payload = {oldPassword: event.target.oldpassword.value, newPassword: event.target.password.value};
+        console.log("PASSWORDS", payload)
+
         dispatch(changePassword(payload)).then(value=>{           
             if(value.payload && value.payload.status == 200){
                 toast.success("Password changed successfully")
@@ -59,7 +61,8 @@ const ChangePassword = () =>{
 
     return(
 
-        <form className="profile-form-details" onSubmit={handleSubmit}>
+        <form className="profile-form" onSubmit={handleSubmit}>
+            <div className="profile-form-details">
             <div className="profile-detail-password">
             <div className="input-container">
             <div className='password-detail'>Old Password</div><input class="profile-form-input" type={isRevealPwd ? "text" : "password"} name="oldpassword" placeholder="Old Password"  />         
@@ -83,7 +86,8 @@ const ChangePassword = () =>{
             
             <button class = "editprofile_button" type='submit'>
 		    <span class="createride_button_text">Save</span>
-		    </button>       
+		    </button> 
+           </div>       
         </form>
     )
 } 

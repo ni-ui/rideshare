@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { loginUser, registerUser } from '../Thunks/AuthThunk';
+import { loginUser, registerUser, forgotPassword } from '../Thunks/AuthThunk';
 
 const initialState = {
   isInitialised: false,
@@ -25,8 +25,14 @@ export const appSlice = createSlice({
   extraReducers: (builder)=>{
     builder.addCase(loginUser.fulfilled, (state, action)=>{
       state.user = action.payload.data.user;
-    }).addCase(registerUser.rejected, (state, action)=>{
+    }).addCase(registerUser.rejected, (action)=>{
       console.log("register rejected: ", action)
+    })
+    .addCase(forgotPassword.fulfilled, (state, action)=>{
+      console.log("request fulfilled: ", action.payload)
+    })
+    .addCase(forgotPassword.rejected, (action)=>{
+      console.log("request rejected: ", action)
     })
   }
 })
