@@ -24,7 +24,7 @@ const StepTwo = ({ nextStep, prevStep, values }) => {
 
         let isError = false;
     
-		if (payload.email.value=='') {
+		if (payload.email.value === '') {
             errors.email = "Email is required"
 			isError = true;
 		} 
@@ -32,7 +32,7 @@ const StepTwo = ({ nextStep, prevStep, values }) => {
             errors.email = "Invalid email"
 			isError = true;
 	    }
-        if (payload.name.value=='') {
+        if (payload.name.value  === '') {
             errors.name = "Name is required"
 			isError = true;
 		  } 
@@ -40,11 +40,11 @@ const StepTwo = ({ nextStep, prevStep, values }) => {
         errors.name = "Name length should be atleast 5 characters"
         isError = true;
         } 
-        if (payload.phone.value=='') {
+        if (payload.phone.value === '') {
             errors.phone = "Phone is required"
 			isError = true;
 		  } 
-      if (payload.phone.value.length != 10) {
+      if (payload.phone.value.length !== 10) {
         errors.phone = "Phone length should be 10 digits"
         isError = true;
         } 
@@ -53,12 +53,11 @@ const StepTwo = ({ nextStep, prevStep, values }) => {
 
     const err = validation(e.target)
     setError(err.err)
-    console.log("ERRR", err)
+
     if (!err.check) {
         values.email= e.target.email.value;
         values.phone = e.target.phone.value;
         values.name = e.target.name.value;
-        console.log("VALUES",values)
       nextStep();
     }
   };
@@ -66,7 +65,7 @@ const StepTwo = ({ nextStep, prevStep, values }) => {
   return (
     <div class="register_container">
 	<div class = "register_box">
-    <img class = "logo" width='50px' src= {logo} />
+    <img alt="Carpool-Logo" class="logo" width='50px' src= {logo} />
 			<form class="register_form" onSubmit={handleSubmit}>
 
                     <h2 class="register-h3">Sign up to drive</h2>
@@ -88,7 +87,7 @@ const StepTwo = ({ nextStep, prevStep, values }) => {
                 </button>
                 </div> 
                 <div class ="login_link_steptwo">
-				        <span>Already have an account?</span> <a style={{color:"#523be4", fontWeight:"bolder"}} onClick={onSignIn}>&nbsp;Sign In</a>
+				        <span>Already have an account?</span> <div style={{color:"#523be4", fontWeight:"bolder"}} onClick={onSignIn}>&nbsp;Sign In</div>
 				        </div>          				
 			</form>
 	</div>

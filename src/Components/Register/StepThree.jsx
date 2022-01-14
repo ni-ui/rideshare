@@ -23,11 +23,11 @@ const StepThree = ({ nextStep, prevStep, values }) => {
 
         let isError = false;
     
-		if (payload.city.value=='') {
+		if (payload.city.value === '') {
 			errors.city = "City is required";
             isError = true;
 		} 
-        if (payload.address.value=='') {
+        if (payload.address.value === '') {
 			errors.address = "Address is required";
             isError = true;
 		} 
@@ -48,7 +48,7 @@ const StepThree = ({ nextStep, prevStep, values }) => {
   return (
     <div class="register_container">
 	<div class = "register_box">
-    <img class = "logo" width='50px' src= {logo} />
+    <img alt="Carpool-Logo" class="logo" width='50px' src= {logo} />
 			<form class="register_form" onSubmit={handleSubmit}>
 
                     <h2 class="register-h3">Sign up to drive</h2>
@@ -68,7 +68,7 @@ const StepThree = ({ nextStep, prevStep, values }) => {
 				</button>
                 </div>
                 <div class ="login_link">
-                <span>Already have an account?</span> <a style={{color:"#523be4", fontWeight:"bolder"}} onClick={onSignIn}>&nbsp;Sign In</a>
+                <span>Already have an account?</span> <div style={{color:"#523be4", fontWeight:"bolder"}} onClick={onSignIn}>&nbsp;Sign In</div>
                 </div>             				
 			    </form>
 	        </div>

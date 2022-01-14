@@ -2,7 +2,7 @@ import  { useState} from "react";
 import { useDispatch } from "react-redux";
 import API from "../../services/api/ApiService";
 import  { useNavigate } from 'react-router-dom';
-import { forgotPassword, loginUser } from "../../redux/Thunks/AuthThunk";
+import { loginUser } from "../../redux/Thunks/AuthThunk";
 import logo from "../../assets/logo.png"
 import { toast } from 'react-toastify';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -16,19 +16,28 @@ export default function Login() {
 	const [isRevealPwd, setIsRevealPwd] = useState(false);
 
 	const validation = (email,password) => {
-		let errors = {};
-		console.log("EMAIL",email)
-		if (email == '') {
+		let errors = {
+			email: '',
+			password: ''
+		}
+		let isError = false;
+		
+		if (email === '') {
 			errors.email = 'Email address is required';
+			isError = true;
+
 		  } else if (!/\S+@\S+\.\S+/.test(email)) {
 			errors.email = 'Email address is invalid';
+			isError = true;
 		  }
-		  if (password == '') {
+		  if (password === '') {
 			errors.password = 'Password is required';
+			isError = true;
 		  } else if (password.length < 8) {
 			errors.password = 'Password must be 8 or more characters';
+			isError = true;
 		  }
-		  return errors
+		  return {err: errors, check: isError}
 	}
 
 	const onSignUp = event => {
@@ -42,18 +51,20 @@ export default function Login() {
 	}
 
 	const handleSubmit = event => {
-	setError({})
     event.preventDefault();
+	
 	const email = event.target.email.value
 	const password = event.target.password.value
 	const payload = {email,password}
 
-	setError(validation(email,password));
-	console.log(event.target.email.value, event.target.password.value)
+	const err = validation(email,password);
+	setError(err.err)
 
-	dispatch(loginUser(payload)).then(value=>{
-		// const response = value.payload
-		if (value.payload && value.payload.status == 200){
+	if(!err.check){
+
+		dispatch(loginUser(payload)).then(value=>{
+
+			if (value.payload && value.payload.status === 200){
 			const response = value.payload
 			API.defaults.headers.common["x-auth-token"] = `${response.data.tokens.access}`;
 			localStorage.setItem("carpool-auth-token",response.data.tokens.access)
@@ -69,13 +80,15 @@ export default function Login() {
 			console.log(value.error)
 			toast.error(value.payload);
 		}
-	}) } 
+	}) }
+
+} 
 		
 	
     return (
 <div class="login_container">
 	<div class = "login_box">
-	<img class = "logo" width='50px' src= {logo} />
+	<img alt= "Carpool-Logo" class="logo" width='50px' src= {logo} />
 
 			<form class="login_form" onSubmit={handleSubmit}>
                 <h1 class="login-h3" >Welcome to Carpool App</h1>
@@ -101,7 +114,7 @@ export default function Login() {
 				</button>	
 
 				<div class ="login_link">
-				<span>Don't have an account?</span> <a style={{color:"#523be4", fontWeight:"bolder"}} onClick={onSignUp}>&nbsp;Sign Up</a>
+				<span>Don't have an account?</span> <div style={{color:"#523be4", fontWeight:"bolder"}} onClick={onSignUp}>&nbsp;Sign Up</div>
 				</div>	
 
 			</form>

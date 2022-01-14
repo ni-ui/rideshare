@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getRides } from '../../../redux/Thunks/DriverThunk';
 import Loader from '../../Common/Loader';
@@ -10,12 +10,12 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import MapSection from '../../Common/Map'
 import TripOriginIcon from '@mui/icons-material/TripOrigin';
 import CircleIcon from '@mui/icons-material/Circle';
+import DateRange from '@mui/icons-material/DateRange';
 
 
 const ViewPastRides = () =>{
 
     const dispatch = useDispatch();
-    const [limit, setLimit] = useState(3);
 
     const location = {
       address: '1600 Amphitheatre Parkway, Mountain View, california.',
@@ -56,10 +56,16 @@ const ViewPastRides = () =>{
                 <MapSection location={location} zoomLevel={17} />
                 </div>
                 <div style={{display: "flex", flexDirection: "column",marginLeft:"20px"}}>
-                  <div style={{ display: "flex", flexDirection: "row",marginLeft:"15px"}}>
-                    <AccessTimeIcon/>  
-                    <div  style={{ marginLeft:"10px"}}>{date.getHours()}:{date.getMinutes()} {date.getDate()}/{date.getMonth()+1}/{date.getFullYear()}</div>
-                  </div>
+                <div style={{ display: "flex", flexDirection: "column",marginLeft:"15px"}}>
+                <div style={{ display: "flex", flexDirection: "row"}}>
+               <DateRange style={{marginTop:"2%"}} fontSize='small'/>
+                <div  style={{ marginLeft:"10px", width:"max-content", fontWeight:"bold", color:"gray", letterSpacing:"2px"}}>{date.getDate()}/{date.getMonth()+1}/{date.getFullYear()}</div>
+                </div>
+                <div style={{ display: "flex", flexDirection: "row"}}>
+                <AccessTimeIcon style={{marginTop:"3%"}} fontSize='small'/>
+                <div  style={{ marginLeft:"10px", width:"max-content", fontWeight:"bold"}}>{date.getHours()}:{date.getMinutes()}</div>
+                </div>
+                </div>
                   <List>
                   <ListItem>
                       <TripOriginIcon/>
@@ -73,14 +79,19 @@ const ViewPastRides = () =>{
                   </ListItem>
                   </List>
                   </div>
-                  <div style={{display: "flex", flexDirection:"column", alignItems:"flex-end",marginLeft:"70px",marginTop:"-10px"}}>
-                  <div style={{height:"50%" , paddingLeft: "10px", fontSize:"40px"}}>
+                  <div style={{display: "flex", flexDirection:"column", alignItems:"flex-end", marginLeft:"auto",marginRight:"20px"}}>
+                <div style={{ paddingLeft: "10px", fontSize:"35px"}}>
                        {ride.fare} PKR
                   </div>
-                  <div style={{marginTop:"35px"}}>
+                  <div style={{marginTop:"5%"}}>
                     <AccountCircleIcon/>   {ride.capacity}
                   </div>
-                  </div>
+                <div style={{display:"flex", flexDirection:"row",marginTop:"28%",columnGap:"2%"}}>
+          {  ride.status === "Completed"? <button className='completeride_button' disabled>Completed</button>:
+             ride.status === "Cancelled"? <button className='cancelride_button' disabled>Cancelled</button>:
+             <button className='startride_button_disable' disabled>Pending</button> }
+            </div>
+                </div>
                 </CardContent>
               </Card>
               

@@ -5,14 +5,16 @@ import Loader from '../../Common/Loader';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import { List, ListItem} from '@mui/material';
+import { List, ListItem, Tooltip} from '@mui/material';
 import MapSection from '../../Common/Map'
 import TripOriginIcon from '@mui/icons-material/TripOrigin';
 import CircleIcon from '@mui/icons-material/Circle';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import DateRange from '@mui/icons-material/DateRange';
+import { ArrowForwardIosRounded, ArrowForwardRounded } from '@mui/icons-material';
 
 
-const ViewBookings = () =>{
+const ViewPastBookings = () =>{
     const dispatch = useDispatch();
 
     const location = {
@@ -23,6 +25,7 @@ const ViewBookings = () =>{
     
 
     const bookings = useSelector((state)=>state.rider.bookings)
+    let pastBookings= [];
 
     useEffect(() => { 
         dispatch(getBookings())
@@ -33,12 +36,19 @@ const ViewBookings = () =>{
     if(!bookings){
         return <Loader/>
     }
+    else{
+        pastBookings =  bookings.filter(function(ride) {
+            return new Date(ride.ride.when) < new Date();
+          });
+          console.log("Past",pastBookings.length)
+
+    }
 
     return(
         <div className='view-ride-box'>
-            <h1>Booked Rides</h1>
-            {bookings.length > 0 ? 
-            bookings.map((ride) =>
+            <h1>Past Bookings</h1>
+            {pastBookings.length > 0 ? 
+            pastBookings.map((ride) =>
             {
               let date = new Date(ride.ride.when);
               return(
@@ -48,9 +58,15 @@ const ViewBookings = () =>{
               <MapSection location={location} zoomLevel={17} />
               </div>
               <div style={{display: "flex", flexDirection: "column",marginLeft:"20px"}}>
-                <div style={{ display: "flex", flexDirection: "row",marginLeft:"15px"}}>
-                  <AccessTimeIcon/>  
-                  <div  style={{ marginLeft:"10px"}}>{date.getHours()}:{date.getMinutes()} {date.getDate()}/{date.getMonth()+1}/{date.getFullYear()}</div>
+                <div style={{ display: "flex", flexDirection: "column",marginLeft:"15px"}}>
+                <div style={{ display: "flex", flexDirection: "row"}}>
+               <DateRange style={{marginTop:"2%"}} fontSize='small'/>
+                <div  style={{ marginLeft:"10px", width:"max-content", fontWeight:"bold", color:"gray", letterSpacing:"2px"}}>{date.getDate()}/{date.getMonth()+1}/{date.getFullYear()}</div>
+                </div>
+                <div style={{ display: "flex", flexDirection: "row"}}>
+                <AccessTimeIcon style={{marginTop:"3%"}} fontSize='small'/>
+                <div  style={{ marginLeft:"10px", width:"max-content", fontWeight:"bold"}}>{date.getHours()}:{date.getMinutes()}</div>
+                </div>
                 </div>
                 <List>
                 <ListItem>
@@ -65,13 +81,19 @@ const ViewBookings = () =>{
                 </ListItem>
                 </List>
                 </div>
-                <div style={{display: "flex", flexDirection:"column", alignItems:"flex-end",marginLeft:"70px",marginTop:"-10px"}}>
-                <div style={{height:"50%" , paddingLeft: "10px", fontSize:"40px"}}>
-                     {ride.ride.fare} PKR
-                </div>
-                <div style={{marginTop:"35px"}}>
-                  <AccountCircleIcon fontSize='large'/>   {ride.driver.name}
-                </div>
+                <div style={{display: "flex", flexDirection:"column", alignItems:"flex-end", marginLeft:"auto",marginRight:"20px"}}>
+                <div style={{ paddingLeft: "10px", fontSize:"35px"}}>
+                       {ride.ride.fare} PKR
+                  </div>
+                  
+                <div style={{display:"flex", flexDirection:"row",marginTop:"40%",columnGap:"15%"}}>
+                {  ride.status === "Completed"? <button className='completeride_button' disabled>Completed</button>:
+             ride.status === "Cancelled"? <button className='cancelride_button' disabled>Cancelled</button>:
+             <button className='startride_button_disable' disabled>Pending</button> }
+            <Tooltip title="View Ride Details">
+            <ArrowForwardRounded fontSize="large" className='more-icon'/>
+            </Tooltip>
+            </div>
                 </div>
               </CardContent>
             </Card>
@@ -81,4 +103,4 @@ const ViewBookings = () =>{
     </div>
     )
 } 
-export default ViewBookings;
+export default ViewPastBookings;

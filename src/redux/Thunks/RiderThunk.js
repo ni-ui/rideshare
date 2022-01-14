@@ -16,6 +16,19 @@ export const bookRide = createAsyncThunk(
     }
 )
 
+// export const cancelRide = createAsyncThunk(
+//     'RiderThunk/CancelRide',
+//     async (payload, {rejectWithValue}) => {
+//         try{
+//             const response = await API.post('/rides/book-a-ride', payload)
+//             return response;
+//         }
+//         catch (e){
+//             return rejectWithValue(e.response.data);
+//         }  
+//     }
+// )
+
 export const getRides = createAsyncThunk(
     'RiderThunk/GetRides',
     async () => {
@@ -27,7 +40,13 @@ export const getRides = createAsyncThunk(
 export const getBookings = createAsyncThunk(
     'RiderThunk/GetBookings',
     async () => {
-        const response = await API.get('/bookings/get-my-bookings');
-        return await response;
+        try{
+            const response = await API.get('/bookings/get-my-bookings')
+            return response;
+        }
+        catch (e){
+            return e.response.data;
+        }
+    
     }
 )

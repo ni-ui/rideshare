@@ -1,7 +1,7 @@
-import { Button, Card, CardContent, List, ListItem } from '@mui/material';
-import React, { useEffect } from 'react';
+import { Card, CardContent, List, ListItem, Tooltip } from '@mui/material';
+import React, { useEffect} from 'react';
 import { useSelector,useDispatch } from 'react-redux';
-import { getRides } from '../../../redux/Thunks/RiderThunk';
+import { getRides, getBookings } from '../../../redux/Thunks/RiderThunk';
 import Loader from '../../Common/Loader';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
@@ -10,38 +10,41 @@ import TripOriginIcon from '@mui/icons-material/TripOrigin';
 import CircleIcon from '@mui/icons-material/Circle';
 import { bookRide } from '../../../redux/Thunks/RiderThunk';
 import { toast } from 'react-toastify';
+import { useState } from 'react';
+import DateRange from '@mui/icons-material/DateRange';
+import { ArrowForwardRounded } from '@mui/icons-material';
 
 const BookRide = () =>{
 
     const dispatch = useDispatch();
    
     const location = {
-      address: '1600 Amphitheatre Parkway, Mountain View, california.',
       lat: 37.42216,
       lng: -122.08427,
     } 
 
+    const [isBooked, setIsBooked] = useState(false);
+
     const rides = useSelector((state)=>state.rider.rides)
-    
+    const bookings = useSelector((state)=>state.rider.bookings)
+       
     const onBook = (id) =>{
         const payload = {ride:id}
-         
         dispatch(bookRide(payload)).then(value=>{
-            if(value.payload && value.payload.status == 200){
-              toast("Ride booked succesfully!", {
-                toastId: 'success1',
-            });
+            if(value.payload && value.payload.status === 200){
+              toast("Ride booked succesfully!");
+              window.location.reload();
               
             }     
             if(value.error){
-              toast.error(value.payload, {
-                toastId: 'error3',
-            });
+              toast.error(value.payload);
             }})
     }
    
     useEffect(() => { 
         dispatch(getRides())
+        dispatch(getBookings())
+
     },[]);
 
     if(!rides){
@@ -52,8 +55,16 @@ const BookRide = () =>{
         <div className='view-ride-box'>
         <h1>Available Rides</h1>
         {
-        rides.filter(function (ride) {
-          return ride.capacity != 0;
+        rides.filter(function (ride) {  
+          // for (let i = 0; i < bookings.length; i += 1) {
+          //     if(bookings[i].ride._id === ride._id){
+          //       console.log("HERE")
+          //       setIsBooked(true);            
+          //     }
+          //     else{
+          //       setIsBooked(false)
+          //     }}
+          return ride.capacity !== 0 && new Date(ride.when) >= new Date()
       }).map((ride) =>
         {
           let date = new Date(ride.when);
@@ -64,10 +75,16 @@ const BookRide = () =>{
           <MapSection location={location} zoomLevel={17} />
           </div>
           <div style={{display: "flex", flexDirection: "column",marginLeft:"20px"}}>
-            <div style={{ display: "flex", flexDirection: "row",marginLeft:"15px"}}>
-              <AccessTimeIcon/>  
-              <div  style={{ marginLeft:"10px"}}>{date.getHours()}:{date.getMinutes()} {date.getDate()}/{date.getMonth()+1}/{date.getFullYear()}</div>
-            </div>
+                <div style={{ display: "flex", flexDirection: "column",marginLeft:"15px"}}>
+                <div style={{ display: "flex", flexDirection: "row"}}>
+               <DateRange style={{marginTop:"2%"}} fontSize='small'/>
+                <div  style={{ marginLeft:"10px", width:"max-content", fontWeight:"bold", color:"gray", letterSpacing:"2px"}}>{date.getDate()}/{date.getMonth()+1}/{date.getFullYear()}</div>
+                </div>
+                <div style={{ display: "flex", flexDirection: "row"}}>
+                <AccessTimeIcon style={{marginTop:"3%"}} fontSize='small'/>
+                <div  style={{ marginLeft:"10px", width:"max-content", fontWeight:"bold"}}>{date.getHours()}:{date.getMinutes()}</div>
+                </div>
+                </div>
             <List>
             <ListItem>
                 <TripOriginIcon/>
@@ -81,16 +98,23 @@ const BookRide = () =>{
             </ListItem>
             </List>
             </div>
-            <div style={{display: "flex", flexDirection:"column", alignItems:"flex-end",marginLeft:"70px",marginTop:"-10px"}}>
-            <div style={{height:"50%" , paddingLeft: "10px", fontSize:"40px"}}>
-                 {ride.fare} PKR
+
+            <div style={{display: "flex", flexDirection:"column", alignItems:"flex-end", marginLeft:"auto",marginRight:"20px"}}>
+                <div style={{ paddingLeft: "10px", fontSize:"35px"}}>
+                       {ride.fare} PKR
+                  </div>
+                  <div style={{marginTop:"5%"}}>
+                    <AccountCircleIcon/>   {ride.capacity}
+                  </div>
+                  
+                <div style={{display:"flex", flexDirection:"row",marginTop:"16%",columnGap:"15%"}}>
+                <button className='bookride_button' onClick={() => onBook(ride._id)}>Book</button>
+
+                <Tooltip title="View Ride Details">
+            <ArrowForwardRounded fontSize="large" className='more-icon'/>
+            </Tooltip>
             </div>
-            <div style={{display:"flex", flexDirection:"row",marginTop:"30px"}}>
-            <div style={{marginRight:"35px"}}>
-              <AccountCircleIcon/>   {ride.capacity}
-            </div>
-            <Button onClick={() => onBook(ride._id)} variant="outlined">Book</Button>
-            </div>
+
             </div>
           </CardContent>
         </Card>

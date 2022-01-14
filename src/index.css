@@ -5,6 +5,7 @@
 @import "./styles/createride.css";
 @import "./styles/viewride.css";
 @import "./styles/profile.css";
+@import "./styles/dashboard.css";
 @import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@200&family=Raleway:wght@200;500&display=swap');
 body {
   margin: 0;
@@ -31,6 +32,7 @@ code {
 .bodyComponent{
   max-height: 100vh;
   width: 100vw;
+  overflow-y: scroll;
   
 }
 
@@ -38,7 +40,9 @@ code {
   cursor: pointer;
   color: black !important;
 }
-.nav-link:hover, .nav-link:active {color: gray!important}
+.nav-link:active, .nav-link:hover {
+  border-bottom: 2px solid #523be4 !important;
+}
 
 .loader{
   width: 100vw;

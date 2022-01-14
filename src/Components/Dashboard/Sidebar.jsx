@@ -6,6 +6,7 @@ import  { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 
+
 const Sidebar = () =>{
 
 const navigate = useNavigate()
@@ -23,9 +24,15 @@ const bookRide = event =>{
   navigate("/dashboard/rider/book")
 }
 
-const viewBookings= event => {
+const viewActiveBookings= event => {
   event.preventDefault()
-  navigate("/dashboard/rider/viewbookings")
+  navigate("/dashboard/rider/viewactivebookings")
+
+}
+
+const viewPastBookings= event => {
+  event.preventDefault()
+  navigate("/dashboard/rider/viewpastbookings")
 
 }
 
@@ -46,7 +53,7 @@ const viewPastRides= event => {
         <div id="header">
         <ProSidebar>
         {
-          userType == "Driver"?
+          userType === "Driver"?
           <Menu iconShape="square">
           <MenuItem onClick = {createRide}>Create a Ride</MenuItem>
           <SubMenu title="View My Rides" >
@@ -55,8 +62,12 @@ const viewPastRides= event => {
           </SubMenu>
         </Menu> : 
          <Menu iconShape="square">
-         <MenuItem onClick = {bookRide}>Book a Ride</MenuItem>   
-         <MenuItem onClick = {viewBookings}>View Bookings</MenuItem>
+         <MenuItem onClick = {bookRide}>Book a Ride</MenuItem>  
+         <SubMenu title="View Bookings" >
+            <MenuItem onClick = {viewActiveBookings}>Active Rides</MenuItem>
+            <MenuItem onClick = {viewPastBookings}>Past Rides</MenuItem>
+          </SubMenu> 
+         {/* <MenuItem onClick = {viewBookings}>View Bookings</MenuItem> */}
        </Menu>
         } 
        

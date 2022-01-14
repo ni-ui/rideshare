@@ -77,7 +77,7 @@ const CreateRide = () =>{
         dispatch(createRide(payload)).then(value=>{
             if(value.payload && value.payload.status === 200){
                   toast("Ride created succesfully!")
-                    navigate("/",{replace:true})
+                    navigate("/dashboard/driver/viewactive",{replace:true})
             }     
             if(value.error){
               toast.error("Something went wrong")

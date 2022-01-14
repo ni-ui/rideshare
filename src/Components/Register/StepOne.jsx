@@ -20,7 +20,7 @@ const StepOne = ({ nextStep, values }) => {
   return (
     <div class="register_container">
 	<div class = "register_box">
-    <img class = "logo" width='50px' src= {logo} />
+    <img alt="Carpool-App" class="logo" width='50px' src= {logo} />
 			<form class="register_form" onSubmit={handleSubmit}>
                     <h2 class="register-h3">Sign up to drive</h2>
 		            <h5 style = {{textAlign: 'left',marginTop:"5%", marginBottom:'10px'}}>What do you want to do?</h5>	
@@ -34,7 +34,7 @@ const StepOne = ({ nextStep, values }) => {
 				</button>
 
         <div class ="login_link">
-				<span>Already have an account?</span> <a style={{color:"#523be4", fontWeight:"bolder"}} onClick={onSignIn}>&nbsp;Sign In</a>
+				<span>Already have an account?</span> <div style={{color:"#523be4", fontWeight:"bolder"}} onClick={onSignIn}>&nbsp;Sign In</div>
 				</div>	
                 				
 			</form>

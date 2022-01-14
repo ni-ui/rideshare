@@ -4,7 +4,6 @@ import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Dashboard from './Components/Dashboard/Dashboard';
 import Register from './Components/Register/Register';
-import Component2 from './Components/Dashboard/Component2';
 import { useEffect } from 'react';
 import { useDispatch } from "react-redux";
 import { getMe } from './redux/Thunks/AuthThunk';
@@ -15,13 +14,15 @@ import Loader from './Components/Common/Loader';
 import ViewActiveRides from './Components/Dashboard/Driver/ViewActiveRides';
 import ViewPastRides from './Components/Dashboard/Driver/ViewPastRides';
 import BookRide from './Components/Dashboard/Rider/BookRide';
-import ViewBookings from './Components/Dashboard/Rider/ViewBookings';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Profile from './Components/Dashboard/Profile/Profile';
 import ForgotPassword from './Components/Login/ForgotPassword';
 import ResetPassword from './Components/Login/ResetPassword';
-
+import ViewActiveBookings from './Components/Dashboard/Rider/ViewActiveBookings';
+import ViewPastBookings from './Components/Dashboard/Rider/ViewPastBookings';
+import DriverLandingPage from './Components/Dashboard/DriverLandingPage';
+import RiderLandingPage from './Components/Dashboard/RiderLandingPage';
 
 function App() {
   const user=useSelector((state)=>state.app.user);  
@@ -97,7 +98,7 @@ function App() {
             </PublicRoute>
            }
           /> 
-          <Route path='/resetPassword' element={
+          <Route path='/resetPassword/' element={
             <PublicRoute>
             <ResetPassword/>
             </PublicRoute>
@@ -106,7 +107,7 @@ function App() {
           <Route path="/dashboard/driver"
           element={
             <DriverPrivateRoute>
-              <Dashboard Page={Component2} />
+              <Dashboard Page={DriverLandingPage} />
               </DriverPrivateRoute>
           } />
           <Route path="dashboard/driver/create"
@@ -130,7 +131,7 @@ function App() {
             <Route path="/dashboard/rider"
           element={
             <RiderPrivateRoute>
-              <Dashboard Page={Component2} />
+              <Dashboard Page={RiderLandingPage} />
               </RiderPrivateRoute>
           } />
           <Route path="/dashboard/rider/book"
@@ -139,10 +140,16 @@ function App() {
               <Dashboard Page={BookRide} />
               </RiderPrivateRoute>
           } />
-          <Route path="/dashboard/rider/viewbookings"
+          <Route path="/dashboard/rider/viewactivebookings"
           element={
             <RiderPrivateRoute>
-              <Dashboard Page={ViewBookings} />
+              <Dashboard Page={ViewActiveBookings} />
+              </RiderPrivateRoute>
+          } />
+          <Route path="/dashboard/rider/viewpastbookings"
+          element={
+            <RiderPrivateRoute>
+              <Dashboard Page={ViewPastBookings} />
               </RiderPrivateRoute>
           } />
           <Route path="/dashboard/profile"

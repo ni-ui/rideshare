@@ -8,7 +8,6 @@ import { changePassword } from '../../../redux/Thunks/UpdateThunk';
 
 const ChangePassword = () =>{
 
-    const user = useSelector((state)=>state.app.user)
     const dispatch = useDispatch()
     
     const [error, setError] = useState({});
@@ -22,7 +21,7 @@ const ChangePassword = () =>{
 
         let isError = false;
     
-		if (payload.password.value=='') {
+		if (payload.password.value === '') {
 			errors.password = "Password is required";
             isError = true;
 		} 
@@ -30,7 +29,7 @@ const ChangePassword = () =>{
 			errors.password = "Password length should be at least 8 characters";
             isError = true;
 	    }
-        if (payload.confirmpassword.value != payload.password.value){
+        if (payload.confirmpassword.value !== payload.password.value){
 			errors.confirmpassword = "Passwords don't match";
             isError = true;
         }
@@ -46,10 +45,9 @@ const ChangePassword = () =>{
 
         if(!err.check){
         const payload = {oldPassword: event.target.oldpassword.value, newPassword: event.target.password.value};
-        console.log("PASSWORDS", payload)
 
         dispatch(changePassword(payload)).then(value=>{           
-            if(value.payload && value.payload.status == 200){
+            if(value.payload && value.payload.status === 200){
                 toast.success("Password changed successfully")
                 dispatch(logOut())
         }  

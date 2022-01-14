@@ -48,7 +48,7 @@ export default function ForgotPassword() {
         const payload = {email:email}
 	    dispatch(forgotPassword(payload)).then(value=>{
             // const response = value.payload
-            if (value.payload && value.payload.status == 200){
+            if (value.payload && value.payload.status === 200){
                toast.success("Link sent successfully!")
     
             }
@@ -62,8 +62,8 @@ export default function ForgotPassword() {
 	
     return (
 <div class="login_container">
-	<div class = "fp_box">
-	<img class = "logo" width='50px' src= {logo} />
+	<div class="fp_box">
+	<img alt="Carpool-Logo" class="logo" width='50px' src= {logo} />
 
 			<form class="fp_form" onSubmit={handleSubmit}>
                 <h1 class="login-h3" >Find your account</h1>
@@ -80,7 +80,7 @@ export default function ForgotPassword() {
 				</button>	
 
 				<div class ="login_link">
-				<a style={{fontWeight:"bolder"}} onClick={onBack}>Go back?</a>
+				<div style={{fontWeight:"bolder"}} onClick={onBack}>Go back?</div>
 				</div>	
 
 			</form>

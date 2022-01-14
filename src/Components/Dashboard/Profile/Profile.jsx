@@ -1,4 +1,4 @@
-import { Avatar } from '@mui/material';
+// import { Avatar } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import React, {useState} from 'react';
 import { editProfile } from '../../../redux/Thunks/UpdateThunk';
@@ -48,7 +48,7 @@ const Profile = () =>{
         event.preventDefault();
         const payload = {id: user._id, payload: state};
         dispatch(editProfile(payload)).then(value=>{
-            if(value.payload && value.payload.status == 200){
+            if(value.payload && value.payload.status === 200){
                 toast.success("Profile edited succesfully")
                 navigate("/dashboard/profile",{replace:true})
         }  

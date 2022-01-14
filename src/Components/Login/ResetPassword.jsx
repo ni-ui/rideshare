@@ -1,11 +1,10 @@
 import React ,{ useState} from "react";
 import { useDispatch } from "react-redux";
-import  { useNavigate, useParams } from 'react-router-dom';
+import  { useNavigate} from 'react-router-dom';
 import { resetPassword } from "../../redux/Thunks/AuthThunk";
 import logo from "../../assets/logo.png"
 import { toast } from 'react-toastify';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import { withRouter } from "react-router-dom";
 
 
 
