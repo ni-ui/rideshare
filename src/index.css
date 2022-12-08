@@ -40,7 +40,7 @@ code {
   cursor: pointer;
   color: black !important;
 }
-.nav-link:active, .nav-link:hover {
+.nav-link:active, .nav-link:hover, .nav-link:focus {
   border-bottom: 2px solid #523be4 !important;
 }
 

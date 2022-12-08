@@ -75,13 +75,11 @@ export default function ResetPassword() {
     return (
 <div class="login_container">
 	<div class = "fp_box">
-	<img class = "logo" width='50px' src= {logo} />
+	<img alt="carpool-logo" class = "logo" width='50px' src= {logo} />
 
 			<form class="fp_form" onSubmit={handleSubmit}>
                 <h1 class="login-h3" >Reset Password</h1>
-				{/* <div class="login-h4">
-				<h5 style = {{marginTop:"5%", marginBottom:'10px'}}>Reset password!</h5>
-				</div> */}
+
                 <div className="input-container">
                     <input class="login_input" type={isRevealPwd ? "text" : "password"} name="password" placeholder="Password"/>
 	                <VisibilityIcon className="visibility-icon" onClick={() => setIsRevealPwd(!isRevealPwd)}/>

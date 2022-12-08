@@ -23,3 +23,10 @@
 #header .pro-inner-item:hover{
   background-color: #e9ecef  !important;
 }
+
+#header .popper-inner{
+  background-color: #D3E4ED  !important;
+}
+#header .closemenu{
+  height: 40px;
+}

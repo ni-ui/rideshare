@@ -15,6 +15,7 @@ export default function Login() {
 	const [error, setError] = useState({});
 	const [isRevealPwd, setIsRevealPwd] = useState(false);
 
+	//input validation
 	const validation = (email,password) => {
 		let errors = {
 			email: '',
@@ -66,6 +67,7 @@ export default function Login() {
 
 			if (value.payload && value.payload.status === 200){
 			const response = value.payload
+			//set token
 			API.defaults.headers.common["x-auth-token"] = `${response.data.tokens.access}`;
 			localStorage.setItem("carpool-auth-token",response.data.tokens.access)
 
@@ -75,11 +77,11 @@ export default function Login() {
 			else
 			navigate("/dashboard/rider",{replace:true})
 
-		}
-		if (value.error){
+			}
+			if (value.error){
 			console.log(value.error)
 			toast.error(value.payload);
-		}
+			}
 	}) }
 
 } 
@@ -97,8 +99,8 @@ export default function Login() {
 				</div>
 					<div className="input-container">
 					<input class="login_input" type="text" name="email"  placeholder="User name / Email" />
-                    <p className="error-warning">{error.email}</p>
 					</div>	
+					<p className="error-warning">{error.email}</p>
 					<div className="input-container">	
 					<input class="login_input" type={isRevealPwd ? "text" : "password"} name="password" placeholder="Password" />					
                     <VisibilityIcon className="visibility-icon" onClick={() => setIsRevealPwd(!isRevealPwd)}/>

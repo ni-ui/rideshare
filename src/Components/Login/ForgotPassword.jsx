@@ -72,8 +72,8 @@ export default function ForgotPassword() {
 				</div>
 					<div className="email-container">
 					<input class="login_input" type="text" name="email"  placeholder="Email" />
-                    <p className="error-warning">{error.email}</p>
-					</div>	
+					</div>
+					<p className="error-warning">{error.email}</p>	
 
 				<button class = "login_button"  type="submit">
 					<span class="login_button_text" >Send Link</span>

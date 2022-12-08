@@ -53,9 +53,9 @@
 
 @media screen and (min-width: 768px){
 	.fp_box{
-		width: 30%;
+		width: 45%;
 	}
-	}
+}
 
 .login_input{
 	margin-top: 2%;
@@ -83,6 +83,15 @@
     transition: all 0.2s;
 	align-self: center;
 }
+
+@media screen and (min-width: 1000px){
+	.fp_box{
+		width: 35%;
+	}
+    
+}
+
+
 @media all and (max-width:30em){
     .login_button{
     display:block;

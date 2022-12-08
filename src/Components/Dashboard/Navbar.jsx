@@ -23,7 +23,7 @@ const Navbar= () =>{
 
   return (
 <nav className="navbar navbar-expand-lg navbar-custom shadow-sm">
-  <a className="navbar-brand" href="/"><img className='navbar-logo' src={logo}/> Carpool App</a>
+  <a className="navbar-brand" href="/"><img alt="carpool-logo" className='navbar-logo' src={logo}/> Carpool App</a>
     <ul className="navbar-nav ms-auto">
       <li className="nav-item dropdown" >
      <Avatar className="avatar-button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">

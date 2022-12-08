@@ -31,7 +31,7 @@ export const cancelRide = createAsyncThunk(
         'DriverThunk/CancelRide',
         async (payload, {rejectWithValue}) => {
             try{
-                const response = await API.post('/rides/cancel-ride/:'+`${payload}`)
+                const response = await API.post('/rides/cancel-ride/'+`${payload}`)
                 return response;
             }
             catch (e){
@@ -44,7 +44,7 @@ export const startRide = createAsyncThunk(
     'DriverThunk/StartRide',
     async (payload, {rejectWithValue}) => {
         try{
-            const response = await API.post('/rides/start-ride/:'+`${payload}`)
+            const response = await API.post('/rides/start-ride/'+`${payload}`)
             return response;
         }
         catch (e){
@@ -57,7 +57,7 @@ export const completeRide = createAsyncThunk(
     'DriverThunk/CompleteRide',
     async (payload, {rejectWithValue}) => {
         try{
-            const response = await API.post('/rides/complete-ride/:'+`${payload}`)
+            const response = await API.post('/rides/complete-ride/'+`${payload}`)
             return response;
         }
         catch (e){

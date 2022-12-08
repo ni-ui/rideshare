@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getRides, getBookings} from '../Thunks/RiderThunk';
+import { getRides, getBookings, cancelBooking, getMyRides} from '../Thunks/RiderThunk';
 
 const initialState = {
   rides: null,
   bookings: null,
+  myrides: null,
 }
 
 export const riderSlice = createSlice({
@@ -19,6 +20,14 @@ export const riderSlice = createSlice({
     }).addCase(getBookings.fulfilled, (state,action)=>{
       state.bookings = action.payload.data;
     }).addCase(getBookings.rejected, (action)=>{
+      console.log("request rejected: ", action);
+    }).addCase(cancelBooking.fulfilled, (state,action)=>{
+      state.bookings = action.payload.data;
+    }).addCase(cancelBooking.rejected, (action)=>{
+      console.log("request rejected: ", action);
+    }).addCase(getMyRides.fulfilled, (state,action)=>{
+      state.myrides = action.payload.data;
+    }).addCase(getMyRides.rejected, (action)=>{
       console.log("request rejected: ", action);
     })
   }

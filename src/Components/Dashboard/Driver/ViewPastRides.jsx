@@ -36,10 +36,11 @@ const ViewPastRides = () =>{
         return <Loader/>
     }
     else{
-      pastRides =  rides.filter(function(ride) {
-        return new Date(ride.when) < new Date();
+      if(rides.length > 0)
+     { pastRides =  rides.filter(function(ride) {
+        return (new Date(ride.when) < new Date() )|| ride.status === "Completed" || ride.status === "Cancelled";
       });
-      console.log("Past",pastRides.length)
+      console.log("Past",pastRides.length)}
     }
 
     return(
@@ -52,7 +53,7 @@ const ViewPastRides = () =>{
                return( 
                <Card Card variant="outlined" className="ride-card">
                 <CardContent style={{display:"flex", flexDirection:"row"}}>
-                  <div style={{width:"50%",height:"20vh"}}>
+                  <div className='ride-card-map'>
                 <MapSection location={location} zoomLevel={17} />
                 </div>
                 <div style={{display: "flex", flexDirection: "column",marginLeft:"20px"}}>
@@ -72,7 +73,7 @@ const ViewPastRides = () =>{
                     <div style={{marginLeft:"10px", fontFamily:"Raleway"}}> {ride.from}</div>
                     
                   </ListItem>
-                  <div style={{borderLeft:'2px dotted grey',height:'20px',marginLeft:'1.4em'}}></div>
+                  <div className='icon-dotted-line'></div>
                   <ListItem>
                       < CircleIcon/>
                     <div style={{marginLeft:"10px", fontFamily:"Raleway"}}>{ride.to} </div> 
@@ -80,7 +81,7 @@ const ViewPastRides = () =>{
                   </List>
                   </div>
                   <div style={{display: "flex", flexDirection:"column", alignItems:"flex-end", marginLeft:"auto",marginRight:"20px"}}>
-                <div style={{ paddingLeft: "10px", fontSize:"35px"}}>
+                <div style={{ paddingLeft: "10px", fontSize:"xx-large"}}>
                        {ride.fare} PKR
                   </div>
                   <div style={{marginTop:"5%"}}>
@@ -89,7 +90,7 @@ const ViewPastRides = () =>{
                 <div style={{display:"flex", flexDirection:"row",marginTop:"28%",columnGap:"2%"}}>
           {  ride.status === "Completed"? <button className='completeride_button' disabled>Completed</button>:
              ride.status === "Cancelled"? <button className='cancelride_button' disabled>Cancelled</button>:
-             <button className='startride_button_disable' disabled>Pending</button> }
+             <button className='startride_button' disabled>Pending</button> }
             </div>
                 </div>
                 </CardContent>

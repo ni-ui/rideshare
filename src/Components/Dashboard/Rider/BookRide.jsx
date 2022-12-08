@@ -10,7 +10,6 @@ import TripOriginIcon from '@mui/icons-material/TripOrigin';
 import CircleIcon from '@mui/icons-material/Circle';
 import { bookRide } from '../../../redux/Thunks/RiderThunk';
 import { toast } from 'react-toastify';
-import { useState } from 'react';
 import DateRange from '@mui/icons-material/DateRange';
 import { ArrowForwardRounded } from '@mui/icons-material';
 
@@ -23,10 +22,18 @@ const BookRide = () =>{
       lng: -122.08427,
     } 
 
-    const [isBooked, setIsBooked] = useState(false);
-
     const rides = useSelector((state)=>state.rider.rides)
     const bookings = useSelector((state)=>state.rider.bookings)
+
+    const isAlreadyBooked = (id) =>{
+    let found = false;
+    bookings.forEach(element => {
+      if(element.ride._id === id){
+        found = true;
+      }
+    });
+    return found;
+  }
        
     const onBook = (id) =>{
         const payload = {ride:id}
@@ -47,7 +54,7 @@ const BookRide = () =>{
 
     },[]);
 
-    if(!rides){
+    if(!rides || !bookings ){
         return <Loader/>
     }
 
@@ -56,22 +63,15 @@ const BookRide = () =>{
         <h1>Available Rides</h1>
         {
         rides.filter(function (ride) {  
-          // for (let i = 0; i < bookings.length; i += 1) {
-          //     if(bookings[i].ride._id === ride._id){
-          //       console.log("HERE")
-          //       setIsBooked(true);            
-          //     }
-          //     else{
-          //       setIsBooked(false)
-          //     }}
-          return ride.capacity !== 0 && new Date(ride.when) >= new Date()
+
+          return ride.capacity !== 0 && new Date(ride.when) >= new Date() && ride.status === "Pending" 
       }).map((ride) =>
         {
           let date = new Date(ride.when);
           return(
           <Card Card variant="outlined" className="ride-card">
           <CardContent style={{display:"flex", flexDirection:"row"}}>
-            <div style={{width:"50%",height:"20vh"}}>
+            <div className='ride-card-map'>
           <MapSection location={location} zoomLevel={17} />
           </div>
           <div style={{display: "flex", flexDirection: "column",marginLeft:"20px"}}>
@@ -91,7 +91,7 @@ const BookRide = () =>{
               <div style={{marginLeft:"10px", fontFamily:"Raleway"}}> {ride.from}</div>
               
             </ListItem>
-            <div style={{borderLeft:'2px dotted grey',height:'20px',marginLeft:'1.4em'}}></div>
+            <div className='icon-dotted-line'></div>
             <ListItem>
                 < CircleIcon/>
               <div style={{marginLeft:"10px", fontFamily:"Raleway"}}>{ride.to} </div> 
@@ -100,19 +100,20 @@ const BookRide = () =>{
             </div>
 
             <div style={{display: "flex", flexDirection:"column", alignItems:"flex-end", marginLeft:"auto",marginRight:"20px"}}>
-                <div style={{ paddingLeft: "10px", fontSize:"35px"}}>
+                <div style={{ paddingLeft: "10px", fontSize:"xx-large"}}>
                        {ride.fare} PKR
                   </div>
                   <div style={{marginTop:"5%"}}>
                     <AccountCircleIcon/>   {ride.capacity}
                   </div>
                   
-                <div style={{display:"flex", flexDirection:"row",marginTop:"16%",columnGap:"15%"}}>
-                <button className='bookride_button' onClick={() => onBook(ride._id)}>Book</button>
+                <div style={{display:"flex", flexDirection:"row",marginTop:"35%",columnGap:"15%"}}>
+                {isAlreadyBooked(ride._id) ? <button className='bookride_button_disabled' disabled>Booked</button> :
+                <button className='bookride_button' onClick={() => onBook(ride._id)}>Book</button>}
 
-                <Tooltip title="View Ride Details">
+                {/* <Tooltip title="View Ride Details">
             <ArrowForwardRounded fontSize="large" className='more-icon'/>
-            </Tooltip>
+            </Tooltip> */}
             </div>
 
             </div>

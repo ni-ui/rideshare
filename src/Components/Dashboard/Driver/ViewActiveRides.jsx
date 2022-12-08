@@ -12,8 +12,6 @@ import MapSection from '../../Common/Map'
 import TripOriginIcon from '@mui/icons-material/TripOrigin';
 import CircleIcon from '@mui/icons-material/Circle';
 import { toast } from 'react-toastify';
-import { Edit } from '@mui/icons-material';
-
 
 const ViewActiveRides = () =>{
 
@@ -27,8 +25,9 @@ const ViewActiveRides = () =>{
     const rides = useSelector((state)=>state.driver.rides)
     let activeRides = []
 
-    const onStart = (id) =>{
-      const payload = {id}
+    const onStart = (event) =>{
+      event.preventDefault()
+      const payload = event.target.value
       dispatch(startRide(payload)).then(value=>{
           if(value.payload && value.payload.status === 200){
             toast("Status updated succesfully!");
@@ -40,8 +39,9 @@ const ViewActiveRides = () =>{
           }})
   }
 
-    const onComplete = (id) =>{
-      const payload = {id}
+    const onComplete = (event) =>{
+      event.preventDefault()
+      const payload = event.target.value
       dispatch(completeRide(payload)).then(value=>{
           if(value.payload && value.payload.status === 200){
             toast("Status updated succesfully!");
@@ -52,8 +52,9 @@ const ViewActiveRides = () =>{
             toast.error(value.payload);
           }})
   }
-    const onCancel = (id) =>{
-      const payload = {id}
+    const onCancel = (event) =>{
+      event.preventDefault()
+      const payload = event.target.value
       dispatch(cancelRide(payload)).then(value=>{
           if(value.payload && value.payload.status === 200){
             toast("Ride canceled succesfully!");
@@ -75,10 +76,11 @@ const ViewActiveRides = () =>{
         return <Loader/>
     }
     else{
-      activeRides =  rides.filter(function(ride) {
-        return new Date(ride.when) >= new Date();
+      if(rides.length > 0 )
+      {activeRides =  rides.filter(function(ride) {
+        return new Date(ride.when) >= new Date() || ride.status === "Started";
       });
-      console.log("Active",activeRides.length)
+      console.log("Active",activeRides.length)}
     }
 
     return(
@@ -92,7 +94,7 @@ const ViewActiveRides = () =>{
               return(
               <Card Card variant="outlined" className="ride-card">
               <CardContent style={{display:"flex", flexDirection:"row"}}>
-                <div style={{width:"50%",height:"20vh"}}>
+                <div className='ride-card-map'>
               <MapSection location={location} zoomLevel={17} />
               </div>
               <div style={{display: "flex", flexDirection: "column",marginLeft:"20px"}}>
@@ -112,25 +114,24 @@ const ViewActiveRides = () =>{
                   <div style={{marginLeft:"10px", fontFamily:"Raleway"}}> {ride.from}</div>
                   
                 </ListItem>
-                <div style={{borderLeft:'2px dotted grey',height:'20px',marginLeft:'1.4em'}}></div>
+                <div className='icon-dotted-line'></div>
                 <ListItem>
                     < CircleIcon/>
                   <div style={{marginLeft:"10px", fontFamily:"Raleway"}}>{ride.to} </div> 
                 </ListItem>
                 </List>
                 </div>
-                <div style={{display: "flex", flexDirection:"column", alignItems:"flex-end",marginLeft:"5%"}}>
-                <div style={{ paddingLeft: "10px", fontSize:"35px"}}>
+                <div style={{display: "flex", flexDirection:"column", alignItems:"flex-end", marginLeft:"auto",marginRight:"20px"}}>
+                <div style={{ paddingLeft: "10px", fontSize:"xx-large"}}>
                        {ride.fare} PKR
                   </div>
                   <div style={{marginTop:"5%"}}>
                     <AccountCircleIcon/>   {ride.capacity}
                   </div>
                 <div style={{display:"flex", flexDirection:"row",marginTop:"17%",columnGap:"2%"}}>
-          {  ride.status === "Started"? <button className='startride_button' disabled>Started</button>:
-             <button className='startride_button' onClick={() => onStart(ride._id)}>Start</button>}
-            <button className='completeride_button' onClick={() => onComplete(ride._id)}>End</button>
-            <button className='cancelride_button' onClick={() => onCancel(ride._id)}>Cancel</button>
+          {  ride.status === "Started"? <button className='completeride_button'value={ride._id} onClick={onComplete}>End</button>:
+             <button className='startride_button' value={ride._id} onClick={onStart}>Start</button>}
+            <button className='cancelride_button'value={ride._id} onClick={onCancel}>Cancel</button>
             </div>
                 </div>
               </CardContent>

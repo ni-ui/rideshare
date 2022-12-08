@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch} from 'react-redux';
 import { toast } from 'react-toastify';
 import { logOut } from '../../../redux/slices/appSlice';
 import VisibilityIcon from '@mui/icons-material/Visibility';

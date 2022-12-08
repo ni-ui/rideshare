@@ -7,7 +7,7 @@ import { Card, CardContent, List, ListItem } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import illustration from "../../assets/illustration.jpg"
+// import illustration from "../../assets/illustration.jpg"
 import { cancelRide, completeRide, getRides, startRide } from '../../redux/Thunks/DriverThunk';
 import Loader from '../Common/Loader';
 import MapSection from '../Common/Map'
@@ -41,6 +41,7 @@ const LandingPage = () =>{
   
       const onComplete = (id) =>{
         const payload = id
+        console.log("PAYLOAD",payload)
         dispatch(completeRide(payload)).then(value=>{
             if(value.payload && value.payload.status === 200){
               toast("Status updated succesfully!");
@@ -81,12 +82,14 @@ const LandingPage = () =>{
         return <Loader/>
     }
     else{
-        const upComingRideDate = new Date(Math.min.apply(null, rides.filter(ride => new Date(ride.when) >= new Date()).map(ride => {
+      if(rides.length > 0)
+        {const upComingRideDate = new Date(Math.min.apply(null, 
+          rides.filter(ride => new Date(ride.when) >= new Date() && ride.status === "Pending").map(ride => {
             return new Date(ride.when);
           })));
           console.log(rides)
-         upComingRides =  rides.filter(ride => new Date(ride.when).getTime() == upComingRideDate.getTime() )
-          console.log("ehweiw",upComingRides)
+         upComingRides =  rides.filter(ride => new Date(ride.when).getTime() === upComingRideDate.getTime() )
+          console.log("ehweiw",upComingRides)}
     }
 
     return(
@@ -106,7 +109,7 @@ const LandingPage = () =>{
               return(
               <Card Card variant="outlined" className="ride-card">
               <CardContent style={{display:"flex", flexDirection:"row"}}>
-                <div style={{width:"50%",height:"20vh"}}>
+                <div className='ride-card-map'>
               <MapSection location={location} zoomLevel={17} />
               </div>
               <div style={{display: "flex", flexDirection: "column",marginLeft:"20px"}}>
@@ -126,15 +129,15 @@ const LandingPage = () =>{
                   <div style={{marginLeft:"10px", fontFamily:"Raleway"}}> {ride.from}</div>
                   
                 </ListItem>
-                <div style={{borderLeft:'2px dotted grey',height:'20px',marginLeft:'1.4em'}}></div>
+                <div className="icon-dotted-line"></div>
                 <ListItem>
                     < Circle/>
                   <div style={{marginLeft:"10px", fontFamily:"Raleway"}}>{ride.to} </div> 
                 </ListItem>
                 </List>
                 </div>
-                <div style={{display: "flex", flexDirection:"column", alignItems:"flex-end",marginLeft:"5%"}}>
-                <div style={{ paddingLeft: "10px", fontSize:"35px"}}>
+                <div style={{display: "flex", flexDirection:"column", alignItems:"flex-end",marginLeft:"auto"}}>
+                <div style={{ paddingLeft: "10px", fontSize:"xx-large"}}>
                        {ride.fare} PKR
                   </div>
                   <div style={{marginTop:"5%"}}>

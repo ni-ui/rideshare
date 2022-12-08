@@ -3,15 +3,15 @@ import DateTimePicker from '@mui/lab/DateTimePicker';
 import TextField from '@mui/material/TextField';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createRide } from '../../../redux/Thunks/DriverThunk';
 import { useNavigate } from 'react-router-dom';
-import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import GroupsIcon from '@mui/icons-material/Groups';
 import PaidIcon from '@mui/icons-material/Paid';
 import DepartureBoardIcon from '@mui/icons-material/DepartureBoard';
 import { toast } from 'react-toastify';
 import MapSection from '../../Common/Map'
+import { AddLocationAlt, GpsFixedRounded } from '@mui/icons-material';
 
 
 
@@ -22,6 +22,8 @@ const CreateRide = () =>{
 
     const [date, setDate] = React.useState(new Date());
     const [error, setError] = React.useState({});
+
+    const user = useSelector((state)=>state.app.user)
 
     const location = {
       lat: 24.935101549207285,
@@ -86,10 +88,10 @@ const CreateRide = () =>{
     return(
         <div class="createride_box">
         <form class="createride_form" onSubmit={handleSubmit}>
-        <h1 class="createride-h3" >Karachi</h1>
+        <h1 class="createride-h3" >{user.city}</h1>
        <div style={{display:"flex", width: "100%"}}>
        <label for="focus-where" style={{cursor:"pointer"}}>
-         <DirectionsCarIcon fontSize='large'/> 
+         <AddLocationAlt fontSize='large'/> 
         </label>
          <input id="focus-where" class="createride_input" type="text" name="to" placeholder="Where To?"/> 
          </div> 
@@ -97,7 +99,7 @@ const CreateRide = () =>{
 
 		  <div style={{display:"flex", width: "100%"}}>
       <label for="focus-to" style={{cursor:"pointer"}}> 
-        <DirectionsCarIcon fontSize='large'/> 
+        <GpsFixedRounded fontSize='large'/> 
         </label>
         <input id="focus-to" class="createride_input" type="text" name="from" placeholder="From Where?"/>
         </div> 

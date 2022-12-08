@@ -6,7 +6,7 @@ const Map = ({ location, zoomLevel }) => (
 
         <GoogleMapReact
           bootstrapURLKeys={{ 
-          key: "AIzaSyBm13tDUmjrMlOIouKnd4Z5XZAs7X03GP0",
+          key: process.env.REACT_APP_GOOGLE_MAP_API,
           language: "en",
           region: "Pakistan" }}
           defaultCenter={location}
